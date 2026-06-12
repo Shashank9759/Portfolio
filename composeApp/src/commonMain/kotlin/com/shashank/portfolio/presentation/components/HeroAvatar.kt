@@ -24,23 +24,32 @@ import com.shashank.portfolio.presentation.animation.idleFloat
 import com.shashank.portfolio.presentation.components.canvas.CanvasGlowRing
 import com.shashank.portfolio.presentation.theme.AndroidGreen
 import com.shashank.portfolio.presentation.theme.LocalExtendedColors
+import com.shashank.portfolio.presentation.theme.LocalResponsiveConfig
 import com.shashank.portfolio.presentation.theme.MonoFont
 
 @Composable
 fun HeroAvatar(modifier: Modifier = Modifier) {
     val extended = LocalExtendedColors.current
-    val floatY = rememberFloatingOffset(18f)
-    val (rotY, rotX) = remember3DRock()
+    val responsive = LocalResponsiveConfig.current
+    val size = responsive.avatarSize
+    val innerRing = size * 0.92f
+    val innerCircle = size * 0.77f
+    val iconSize = size * 0.28f
+    val floatOffset = rememberFloatingOffset(18f)
+    val floatY = if (responsive.enableHoverEffects) floatOffset else 0f
+    val rock = remember3DRock()
+    val rotY = if (responsive.enableHoverEffects) rock.first else 0f
+    val rotX = if (responsive.enableHoverEffects) rock.second else 0f
 
     Box(
-        modifier = modifier.size(260.dp),
+        modifier = modifier.size(size),
         contentAlignment = Alignment.Center,
     ) {
         CanvasGlowRing(modifier = Modifier.matchParentSize())
 
         Box(
             modifier = Modifier
-                .size(240.dp)
+                .size(innerRing)
                 .graphicsLayer {
                     translationY = floatY
                     rotationY = rotY
@@ -59,7 +68,7 @@ fun HeroAvatar(modifier: Modifier = Modifier) {
         ) {
             Box(
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(innerCircle)
                     .clip(CircleShape)
                     .background(
                         Brush.radialGradient(
@@ -74,7 +83,7 @@ fun HeroAvatar(modifier: Modifier = Modifier) {
                         imageVector = Icons.Default.Android,
                         contentDescription = "Android Developer",
                         tint = AndroidGreen,
-                        modifier = Modifier.size(72.dp),
+                        modifier = Modifier.size(iconSize),
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(

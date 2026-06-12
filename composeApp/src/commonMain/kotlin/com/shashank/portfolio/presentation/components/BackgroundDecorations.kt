@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import com.shashank.portfolio.presentation.theme.AndroidGreen
+import com.shashank.portfolio.presentation.theme.BackgroundIntensity
 
 /**
  * Android-themed background confined to screen edges only.
@@ -152,14 +153,22 @@ fun GlowOrb(modifier: Modifier = Modifier, color: Color) {
 
 /** Semi-opaque backdrop so content never clashes with background art. */
 @Composable
-fun SectionContentBackdrop(modifier: Modifier = Modifier) {
+fun SectionContentBackdrop(
+    modifier: Modifier = Modifier,
+    intensity: BackgroundIntensity = BackgroundIntensity.Full,
+) {
     val bgColor = MaterialTheme.colorScheme.background
+    val (topAlpha, bottomAlpha) = when (intensity) {
+        BackgroundIntensity.Full -> 0.52f to 0.68f
+        BackgroundIntensity.Light -> 0.62f to 0.78f
+        BackgroundIntensity.Minimal -> 0.78f to 0.88f
+    }
     Canvas(modifier = modifier.fillMaxSize()) {
         drawRect(
             brush = Brush.verticalGradient(
                 colors = listOf(
-                    bgColor.copy(alpha = 0.52f),
-                    bgColor.copy(alpha = 0.68f),
+                    bgColor.copy(alpha = topAlpha),
+                    bgColor.copy(alpha = bottomAlpha),
                 ),
             ),
         )

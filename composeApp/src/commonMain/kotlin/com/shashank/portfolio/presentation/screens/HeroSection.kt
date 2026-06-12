@@ -21,9 +21,13 @@ import com.shashank.portfolio.presentation.animation.scrollReveal
 import com.shashank.portfolio.presentation.animation.staggerDelay
 import com.shashank.portfolio.presentation.components.*
 import com.shashank.portfolio.presentation.navigation.PortfolioSection
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.ui.platform.LocalDensity
 import com.shashank.portfolio.presentation.theme.ExtendedColors
 import com.shashank.portfolio.presentation.theme.Layout
 import com.shashank.portfolio.presentation.theme.LocalExtendedColors
+import com.shashank.portfolio.presentation.theme.LocalResponsiveConfig
 import com.shashank.portfolio.presentation.theme.ScreenSize
 import com.shashank.portfolio.presentation.theme.Spacing
 import com.shashank.portfolio.presentation.theme.screenSize
@@ -41,7 +45,10 @@ fun HeroSection(
     modifier: Modifier = Modifier,
 ) {
     val extended = LocalExtendedColors.current
-    val animState = rememberScrollAnimation(isVisible, enable3D = true)
+    val responsive = LocalResponsiveConfig.current
+    val density = LocalDensity.current
+    val statusBarTop = with(density) { WindowInsets.statusBars.getTop(density).toDp() }
+    val animState = rememberScrollAnimation(isVisible, enable3D = responsive.enableHoverEffects)
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val isMobile = screenSize(maxWidth) == ScreenSize.Mobile
@@ -54,8 +61,8 @@ fun HeroSection(
                     modifier = Modifier
                         .scrollReveal(animState)
                         .padding(
-                            top = Layout.navTotalHeight + if (isMobile) Spacing.lg else Spacing.xl,
-                            bottom = Spacing.section,
+                            top = Layout.navTotalHeight + statusBarTop + responsive.heroTopPadding,
+                            bottom = responsive.sectionSpacing,
                         ),
                 ) {
                     RecruiterQuickBar(

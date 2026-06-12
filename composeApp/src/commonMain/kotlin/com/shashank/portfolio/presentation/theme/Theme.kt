@@ -45,6 +45,7 @@ object ThemeState {
 @Composable
 fun PortfolioTheme(
     mode: PortfolioThemeMode = ThemeState.currentMode,
+    screen: ScreenSize = LocalResponsiveConfig.current.screen,
     content: @Composable () -> Unit,
 ) {
     val palette = paletteFor(mode)
@@ -63,7 +64,7 @@ fun PortfolioTheme(
     ) {
         MaterialTheme(
             colorScheme = scheme,
-            typography = PortfolioTypography,
+            typography = responsiveTypography(screen),
             content = content,
         )
     }

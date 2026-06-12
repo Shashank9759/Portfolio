@@ -19,6 +19,7 @@ import com.shashank.portfolio.presentation.components.*
 import com.shashank.portfolio.presentation.theme.LocalExtendedColors
 import com.shashank.portfolio.presentation.theme.ScreenSize
 import com.shashank.portfolio.presentation.theme.Spacing
+import com.shashank.portfolio.presentation.theme.responsiveSectionPadding
 import com.shashank.portfolio.presentation.theme.screenSize
 import com.shashank.portfolio.presentation.viewmodel.PortfolioViewModel
 
@@ -32,7 +33,7 @@ fun ContactSection(
 ) {
     val animState = rememberScrollAnimation(isVisible)
 
-    BoxWithConstraints(modifier = modifier.fillMaxWidth().padding(vertical = Spacing.section)) {
+    BoxWithConstraints(modifier = modifier.fillMaxWidth().responsiveSectionPadding()) {
         val isMobile = screenSize(maxWidth) == ScreenSize.Mobile
 
         ContentContainer {

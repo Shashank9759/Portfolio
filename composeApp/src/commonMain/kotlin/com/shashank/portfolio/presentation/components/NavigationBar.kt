@@ -70,7 +70,9 @@ private fun NavBarSurface(
     )
 
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .statusBarsPadding(),
         color = extended.glass.copy(alpha = bgAlpha),
         shadowElevation = elevation.dp,
         tonalElevation = 0.dp,

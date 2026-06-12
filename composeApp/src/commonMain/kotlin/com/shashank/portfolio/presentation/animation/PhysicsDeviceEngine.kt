@@ -61,7 +61,9 @@ fun rememberPhysicsDevices(
     canvasHeight: Float,
     pointer: Offset,
     scrollOffset: Int = 0,
+    enabled: Boolean = true,
 ): List<PhysicsDeviceState> {
+    if (!enabled || canvasWidth <= 0f || canvasHeight <= 0f) return emptyList()
     val configs = remember(canvasWidth, canvasHeight) {
         defaultPhysicsDevices(canvasWidth, canvasHeight)
     }

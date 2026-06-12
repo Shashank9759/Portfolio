@@ -19,6 +19,7 @@ import com.shashank.portfolio.presentation.components.GlassCard
 import com.shashank.portfolio.presentation.components.SectionHeader
 import com.shashank.portfolio.presentation.theme.LocalExtendedColors
 import com.shashank.portfolio.presentation.theme.Spacing
+import com.shashank.portfolio.presentation.theme.responsiveSectionPadding
 
 @Composable
 fun ExperienceSection(
@@ -29,7 +30,7 @@ fun ExperienceSection(
     val animState = rememberScrollAnimation(isVisible)
 
     ContentContainer(
-        modifier = modifier.padding(vertical = Spacing.section),
+        modifier = modifier.responsiveSectionPadding(),
     ) {
         Column(
             modifier = Modifier.scrollReveal(animState),

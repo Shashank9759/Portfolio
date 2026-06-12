@@ -27,6 +27,7 @@ import com.shashank.portfolio.presentation.animation.PhysicsDeviceType
 import com.shashank.portfolio.presentation.animation.normalized
 import com.shashank.portfolio.presentation.animation.rememberPhysicsDevices
 import com.shashank.portfolio.presentation.theme.AndroidGreen
+import com.shashank.portfolio.presentation.theme.BackgroundIntensity
 import com.shashank.portfolio.presentation.theme.LocalThemePalette
 import com.shashank.portfolio.presentation.theme.MonoFont
 import kotlin.math.PI
@@ -59,7 +60,15 @@ fun InteractiveDevBackground(
     modifier: Modifier = Modifier,
     scrollOffset: Int = 0,
     pointerPosition: Offset = Offset.Zero,
+    intensity: BackgroundIntensity = BackgroundIntensity.Full,
 ) {
+    val showPhysics = intensity == BackgroundIntensity.Full
+    val showEffects = intensity != BackgroundIntensity.Minimal
+    val particleCount = when (intensity) {
+        BackgroundIntensity.Full -> 80
+        BackgroundIntensity.Light -> 32
+        BackgroundIntensity.Minimal -> 0
+    }
     val palette = LocalThemePalette.current
     val glowColor = palette.accentGlow
     val particleColor = palette.particleColor
@@ -93,10 +102,12 @@ fun InteractiveDevBackground(
         val canvasW = constraints.maxWidth.toFloat()
         val canvasH = constraints.maxHeight.toFloat()
         val norm = pointerPosition.normalized(canvasW, canvasH)
-        val physicsDevices = rememberPhysicsDevices(canvasW, canvasH, pointerPosition, scrollOffset)
+        val physicsDevices = rememberPhysicsDevices(
+            canvasW, canvasH, pointerPosition, scrollOffset, enabled = showPhysics,
+        )
 
-        val hoveredId = remember(physicsDevices, pointerPosition) {
-            if (pointerPosition == Offset.Zero) null
+        val hoveredId = remember(physicsDevices, pointerPosition, showPhysics) {
+            if (!showPhysics || pointerPosition == Offset.Zero) null
             else physicsDevices.firstOrNull { it.bounds().contains(pointerPosition) }?.config?.id
         }
 
@@ -104,11 +115,19 @@ fun InteractiveDevBackground(
             val w = size.width
             val h = size.height
 
-            drawAuroraWaves(glowColor, particleColor, auroraPhase, norm, w, h)
-            drawParallaxGrid(glowColor.copy(0.08f), pulse, norm, parallax)
-            drawOrbitRings(glowColor.copy(0.07f), orbitAngle, norm, w, h)
-            drawParticleField(particleColor, particlePhase, pointerPosition, norm, w, h)
-            drawParticleConnections(particleColor.copy(0.14f), particlePhase, pointerPosition, w, h)
+            if (showEffects) {
+                drawAuroraWaves(glowColor, particleColor, auroraPhase, norm, w, h)
+                drawParallaxGrid(glowColor.copy(0.08f), pulse, norm, parallax)
+                if (intensity == BackgroundIntensity.Full) {
+                    drawOrbitRings(glowColor.copy(0.07f), orbitAngle, norm, w, h)
+                }
+                if (particleCount > 0) {
+                    drawParticleField(particleColor, particlePhase, pointerPosition, norm, w, h, particleCount)
+                    drawParticleConnections(particleColor.copy(0.14f), particlePhase, pointerPosition, w, h)
+                }
+            } else {
+                drawParallaxGrid(glowColor.copy(0.05f), pulse, norm, parallax)
+            }
 
             // Physics devices — drawn before vignette so they stay visible at edges
             physicsDevices.forEach { device ->
@@ -131,8 +150,10 @@ fun InteractiveDevBackground(
                 ),
             )
 
-            versionBadges.forEach { badge ->
-                drawVersionBadge(badge, textMeasurer, glowColor, norm, parallax, auroraPhase, w, h)
+            if (showEffects) {
+                versionBadges.take(if (intensity == BackgroundIntensity.Light) 3 else versionBadges.size).forEach { badge ->
+                    drawVersionBadge(badge, textMeasurer, glowColor, norm, parallax, auroraPhase, w, h)
+                }
             }
 
             if (pointerPosition != Offset.Zero) {
@@ -321,9 +342,9 @@ private fun DrawScope.drawOrbitRings(color: Color, angle: Float, norm: Offset, w
 }
 
 private fun DrawScope.drawParticleField(
-    color: Color, phase: Float, pointer: Offset, norm: Offset, w: Float, h: Float,
+    color: Color, phase: Float, pointer: Offset, norm: Offset, w: Float, h: Float, count: Int,
 ) {
-    repeat(80) { i ->
+    repeat(count) { i ->
         val angle = (phase + i * 91.7f) * (PI / 180f).toFloat()
         val layer = (i % 5) / 5f
         val cx = w * (0.04f + (i % 11) * 0.088f) + cos(angle) * (24f + layer * 20f) + norm.x * layer * 35f

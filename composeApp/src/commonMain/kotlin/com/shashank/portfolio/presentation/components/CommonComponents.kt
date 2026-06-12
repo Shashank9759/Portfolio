@@ -33,6 +33,7 @@ import com.shashank.portfolio.presentation.animation.rememberPulseScale
 import com.shashank.portfolio.presentation.animation.rememberShimmerPhase
 import com.shashank.portfolio.presentation.theme.Layout
 import com.shashank.portfolio.presentation.theme.LocalExtendedColors
+import com.shashank.portfolio.presentation.theme.LocalResponsiveConfig
 import com.shashank.portfolio.presentation.theme.MonoFont
 import com.shashank.portfolio.presentation.components.canvas.AnimatedSectionUnderline
 import com.shashank.portfolio.presentation.theme.Spacing
@@ -49,11 +50,12 @@ fun GlassCard(
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
 
+    val enableHover = LocalResponsiveConfig.current.enableHoverEffects
     val tiltModifier = rememberHoverTilt()
 
     Column(
         modifier = modifier
-            .then(tiltModifier)
+            .then(if (enableHover) tiltModifier else Modifier)
             .shadow(if (isHovered) 16.dp else 6.dp, shape, ambientColor = Color.Black.copy(alpha = 0.25f))
             .clip(shape)
             .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.95f))
@@ -75,8 +77,9 @@ fun SectionHeader(
     val extended = LocalExtendedColors.current
     val alignment = if (centered) Alignment.CenterHorizontally else Alignment.Start
 
+    val enableMotion = LocalResponsiveConfig.current.enableHoverEffects
     Column(
-        modifier = modifier.idleFloat(amplitude = 4f, durationMs = 4200),
+        modifier = modifier.then(if (enableMotion) Modifier.idleFloat(amplitude = 4f, durationMs = 4200) else Modifier),
         horizontalAlignment = alignment,
     ) {
         Text(
@@ -431,10 +434,11 @@ fun ContentContainer(
     modifier: Modifier = Modifier,
     content: @Composable BoxScope.() -> Unit,
 ) {
+    val horizontal = LocalResponsiveConfig.current.horizontalPadding
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Spacing.lg),
+            .padding(horizontal = horizontal),
         contentAlignment = Alignment.Center,
     ) {
         Box(

@@ -1,165 +1,242 @@
-# Shashank Ranjan — Technical Skills
+# Portfolio — AI Project Guide
 
-Comprehensive overview of technical skills, frameworks, tools, and freelancing services.
-
----
-
-## Programming Languages
-
-| Language | Proficiency | Usage |
-|----------|-------------|-------|
-| **Kotlin** | Expert | Primary language for Android, KMP, and backend clients |
-| **Java** | Advanced | Legacy Android codebases and enterprise apps |
-| **Python** | Intermediate | ML model training, scripting, automation |
+> **Purpose:** This file helps AI assistants (Cursor, Claude, Copilot, etc.) understand this repository quickly and make correct changes without breaking multiplatform builds.
+>
+> **Owner:** Shashank Ranjan — SDE-1, Android & Cross-Platform Mobile Engineer  
+> **Location:** Noida, Uttar Pradesh, India  
+> **Contact:** shashankranjantech@gmail.com
 
 ---
 
-## Mobile Development Expertise
+## What This Project Is
 
-### Android Mobile Development
-- **Jetpack Compose** — Declarative UI, animations, Material 3 theming
+A **Compose Multiplatform (CMP)** personal portfolio app for **Shashank Ranjan**. One shared Kotlin UI (`commonMain`) runs on:
 
-### Android TV & Leanback
-- **Leanback Library** — RowsSupportFragment, BrowseSupportFragment, TV-optimized navigation
-- **D-pad / Focus Navigation** — 10-foot UI, focus states, remote control UX
-- **Android TV Compose** — TV-adapted Compose layouts and focus management
-- **Kotlin** — Coroutines, Flow, sealed classes, extension functions
-- **Architecture** — MVVM, MVP, MVI, Clean Architecture, SOLID principles
-- **Jetpack Libraries** — Room, WorkManager, Navigation, CameraX, DataStore
-- **Testing** — JUnit, Mockito, MockK, Espresso, Robolectric, Kover coverage
-- **Performance** — Multithreading, caching, custom pagination, Gradle optimization
+| Platform | Source set | Entry point | Run command |
+|----------|------------|-------------|-------------|
+| **Web** | `wasmJsMain` | `main.kt` → `ComposeViewport("ComposeTarget")` | `./gradlew :composeApp:wasmJsBrowserDevelopmentRun` |
+| **Android** | `androidMain` | `MainActivity.kt` | `./gradlew :composeApp:installDebug` |
+| **iOS** | `iosMain` | `MainViewController.kt` | Open `iosApp/iosApp.xcodeproj` in Xcode |
+| **macOS (native)** | `macosMain` | `main.kt` → `NSApplication` + `Window` | `./gradlew :composeApp:runDebugExecutableMacosArm64` |
+| **Desktop (JVM)** | `desktopMain` | `Main.kt` → `application { Window }` | `./gradlew :composeApp:run` |
 
-### Kotlin Multiplatform (KMP)
-- Shared business logic across Android, iOS, and Desktop
-- Ktor client for networking
-- SQLDelight for local database
-- expect/actual pattern for platform-specific code
-
-### Compose Multiplatform (CMP)
-- Shared UI components across platforms
-- Web target via Kotlin/Wasm
-- Responsive layouts for desktop, tablet, and mobile
-- Material 3 theming with dark/light mode support
-
-### iOS Development
-| Technology | Experience |
-|-----------|-----------|
-| **SwiftUI** | Declarative iOS UI, state management, navigation |
-| **UIKit** | View controllers, Auto Layout, Storyboards, programmatic UI |
-| **iOS Architecture** | MVC, MVVM patterns, delegate patterns, lifecycle management |
-
-### Cross-Platform Frameworks
-| Framework | Experience |
-|-----------|-----------|
-| **React Native** | Navigation, Redux/Recoil state management, native modules |
-| **Flutter** | Widget-based UI, cross-platform deployment |
-| **Kotlin Multiplatform** | Shared business logic across Android and iOS |
+**Windows / Linux** use the **desktop (JVM)** target — not macOS native.  
+**Web** is deployed as static Wasm output to GitHub Pages, Netlify, Vercel, etc.
 
 ---
 
-## Frameworks & Libraries
+## Tech Stack (Pinned Versions)
 
-### UI & Architecture
-- Jetpack Compose / Compose Multiplatform
-- MVVM, MVP, MVI
-- Clean Architecture
-- Dagger / Hilt (Dependency Injection)
-- Material Design 3
+| Item | Version |
+|------|---------|
+| Kotlin | 2.1.21 |
+| Compose Multiplatform | 1.8.2 |
+| Android Gradle Plugin | 8.5.2 |
+| compileSdk / targetSdk | 35 |
+| minSdk | 24 |
+| JDK | **17 required** (21+ can break Gradle/Kotlin) |
 
-### Networking & APIs
-- Retrofit, OkHttp, Ktor
-- RESTful APIs, JSON parsing
-- Socket.IO / WebSockets (real-time communication)
-- Firebase (Realtime DB, Firestore, Auth, Cloud Messaging)
-- Appwrite, Supabase
-
-### Database & Storage
-- Room, SQLite
-- Firebase Realtime Database / Firestore
-- SQLDelight (KMP)
-
-### Machine Learning
-- TensorFlow / TensorFlow Lite
-- On-device ML inference
-- CameraX integration for real-time classification
-- Data augmentation and model optimization
-
-### Background Processing
-- WorkManager
-- Services & Broadcast Receivers
-- Google Fit API, Sleep API, Activity Recognition
+Gradle properties: `org.jetbrains.compose.experimental.macos.enabled=true` (native macOS).
 
 ---
 
-## Development Tools
+## Architecture
 
-| Category | Tools |
-|----------|-------|
-| **Version Control** | Git, GitHub, Bitbucket |
-| **Build Systems** | Gradle, advanced Gradle configurations |
-| **CI/CD** | Agile methodologies, automated pipelines |
-| **IDE** | Android Studio, IntelliJ IDEA, Cursor |
-| **Testing** | JUnit, Espresso, MockK, Robolectric, Kover |
-| **Design** | Figma (UI/UX implementation) |
-| **Maps & Location** | Google Maps API |
-| **Monetization** | Google AdMob |
-| **Analytics** | Firebase Analytics |
+```
+domain/          → PortfolioModels.kt (data classes)
+data/            → PortfolioDataSource.kt (static content), PortfolioRepository.kt
+presentation/    → UI, theme, navigation, animations, viewmodel
+Platform.kt      → expect openUrl, downloadFile, openEmail
+PlatformUi.kt    → expect isTouchPlatform()
+```
 
----
+**Pattern:** Clean Architecture — Domain → Data → Presentation.  
+**State:** `PortfolioViewModel` loads data from `PortfolioRepository` → `PortfolioDataSource`.  
+**Root composable:** `presentation/App.kt` — wraps content in `ProvideResponsiveLayout` + `PortfolioTheme`.
 
-## Technical Skills by Domain
+### UI Sections (in scroll order)
 
-### Frontend (Mobile UI)
-- Jetpack Compose declarative UI
-- Compose animations and transitions
-- Custom composables and design systems
-- Glassmorphism and gradient effects
-- Responsive layouts (mobile, tablet, desktop)
+1. Hero — `HeroSection.kt`
+2. About — `AboutSection.kt`
+3. Skills — `SkillsSection.kt`
+4. Experience — `ExperienceSection.kt`
+5. Projects — `ProjectsSection.kt`
+6. Services — `ServicesSection.kt`
+7. Testimonials — `TestimonialsSection.kt`
+8. Contact — `ContactSection.kt`
+9. Footer — `FooterSection.kt`
 
-### Backend Integration
-- RESTful API design and consumption
-- Real-time data via WebSockets/Socket.IO
-- Firebase backend services
-- Offline-first architecture with sync strategies
-- 95% data compression optimization (CricRadio)
-
-### DevOps & Quality
-- Unit and instrumentation testing
-- Code coverage tracking (Kover)
-- CI/CD pipeline integration
-- Performance profiling and optimization
-- Technical evaluations and intern mentorship
-
-### Research & Innovation
-- Federated Learning for health applications
-- Digital health activity tracking
-- ML model development and TFLite deployment
-- Competitive benchmarking and tech strategy
+**Navigation:** `NavigationBar.kt` (sticky), `SectionScrollRegistry.kt` (scroll-to-section), `FloatingContactFab.kt`, `RecruiterQuickBar.kt`.
 
 ---
 
-## Freelancing Services Offered
+## Directory Map
 
-| Service | Description |
-|---------|-------------|
-| **Android App Development** | End-to-end native Android apps with Jetpack Compose, MVVM, and Clean Architecture |
-| **Kotlin Multiplatform Development** | Shared business logic across Android, iOS, and Desktop |
-| **Compose Multiplatform Development** | Unified UI across platforms including web via Kotlin/Wasm |
-| **Cross-Platform Mobile Development** | React Native, Flutter, and SwiftUI solutions |
-| **UI/UX Implementation** | Pixel-perfect, animated interfaces with modern design patterns |
-| **API Integration** | RESTful APIs, WebSockets, Firebase, and third-party SDKs |
-| **Performance Optimization** | Multithreading, caching, compression, and app profiling |
-| **App Maintenance & Support** | Bug fixes, feature updates, testing, and long-term maintenance |
+```
+Portfolio/
+├── composeApp/
+│   ├── build.gradle.kts          # All KMP targets + compose.desktop packaging
+│   └── src/
+│       ├── commonMain/kotlin/com/shashank/portfolio/
+│       │   ├── data/source/PortfolioDataSource.kt   ← EDIT CONTENT HERE
+│       │   ├── domain/model/PortfolioModels.kt
+│       │   ├── presentation/
+│       │   │   ├── App.kt                           ← Root UI
+│       │   │   ├── screens/                         ← Section composables
+│       │   │   ├── components/                      ← Nav, FAB, canvas background
+│       │   │   ├── theme/                           ← Colors, Responsive, ThemeMode
+│       │   │   ├── animation/                       ← Physics, scroll animations
+│       │   │   ├── navigation/
+│       │   │   └── viewmodel/PortfolioViewModel.kt
+│       │   ├── Platform.kt                        ← expect declarations
+│       │   └── PlatformUi.kt
+│       ├── androidMain/                           ← MainActivity, Platform.android.kt
+│       ├── wasmJsMain/                            ← main.kt, index.html, Platform.wasmJs.kt
+│       ├── iosMain/                               ← MainViewController.kt, Platform.ios.kt
+│       ├── macosMain/                             ← Native macOS entry + Platform.macos.kt
+│       └── desktopMain/                           ← JVM desktop (Win/Mac/Linux)
+├── iosApp/                                        ← Xcode wrapper for iOS
+│   ├── Configuration/Config.xcconfig              ← Set TEAM_ID, BUNDLE_ID
+│   └── iosApp.xcodeproj
+├── gradle/libs.versions.toml
+├── gradle.properties
+├── skills.md                                      ← This file (AI + project context)
+└── README.md                                      ← Human-facing documentation
+```
 
 ---
 
-## Notable Achievements
+## Common AI Tasks — Where to Edit
 
-- **100K+ downloads** — CricRadio real-time cricket app
-- **1000+ downloads, 4.6★** — RRBMU Studies university app
-- **95% data compression** — Custom server optimization at Lifease Solutions
-- **Research collaboration** — Bristol University Federated Learning project
-- **ML deployment** — SkinLens skin disease detection with custom TFLite model
+| Task | File(s) |
+|------|---------|
+| Change name, email, links, resume URL | `PortfolioDataSource.kt` |
+| Add/edit job, project, skill, testimonial | `PortfolioDataSource.kt` + `PortfolioModels.kt` if new fields |
+| Change colors / theme modes | `theme/Color.kt`, `theme/PortfolioThemeMode.kt`, `theme/Theme.kt` |
+| Typography / spacing | `theme/Typography.kt`, `theme/Dimensions.kt`, `theme/Responsive.kt` |
+| Nav links / section IDs | `navigation/Navigation.kt`, `NavigationBar.kt` |
+| Web HTML shell / loader | `wasmJsMain/resources/index.html` |
+| Web entry (blank screen bugs) | `wasmJsMain/kotlin/.../main.kt` — must use `ComposeViewport("ComposeTarget")` |
+| Android edge-to-edge / insets | `MainActivity.kt`, `NavigationBar.kt` (`statusBarsPadding`) |
+| Open URL / email per platform | `Platform.*.kt` in each `*Main` source set |
+| Touch vs desktop behavior | `PlatformUi.*.kt` — `isTouchPlatform()` drives `Responsive.kt` |
+| iOS Xcode signing | `iosApp/Configuration/Config.xcconfig` |
+
+---
+
+## Coding Conventions (Follow These)
+
+1. **Shared UI in `commonMain` only** — platform code stays in `*Main` source sets via `expect`/`actual`.
+2. **Minimize scope** — match existing naming, imports, and Material 3 patterns.
+3. **Responsive system** — use `LocalResponsiveConfig` / `ProvideResponsiveLayout`; mobile disables physics/hover.
+4. **Wasm-safe UI** — no emoji in theme picker labels (use text + colored dots); broken glyphs on web.
+5. **Web container** — `index.html` must have `<div id="ComposeTarget">`, not a raw `<canvas>`.
+6. **Do not use Android NDK APIs on Wasm** — canvas/physics uses Skia via `InteractiveDevBackground.kt`.
+7. **14 theme modes** — `PortfolioThemeMode` enum; picker is overlay `DropdownMenu` in `ThemeModePicker.kt`.
+8. **Contact email** — Wasm opens Gmail compose URL; Android uses `Intent`; desktop/iOS/macOS use `mailto:` or system handlers.
+
+---
+
+## Platform-Specific Gotchas
+
+### Web (Wasm)
+- Entry: `ComposeViewport(viewportContainerId = "ComposeTarget")`
+- `openEmail` uses Gmail web compose (reliable in browser)
+- Requires browsers with Wasm GC (Chrome 119+, Firefox 120+, Safari 18+)
+
+### Android
+- `enableEdgeToEdge()` in `MainActivity`
+- `AndroidContextProvider` required for `Platform.android.kt`
+- `isTouchPlatform() = true` → minimal background intensity, no hover animations
+
+### iOS
+- `MainViewController()` exported to Swift as `MainViewControllerKt.MainViewController()`
+- Framework name: `ComposeApp` (static)
+- Build via Xcode; Gradle task `embedAndSignAppleFrameworkForXcode` needs Xcode env vars
+- Set `TEAM_ID` in `iosApp/Configuration/Config.xcconfig`
+
+### macOS (native)
+- Uses `NSApplication.sharedApplication()` + `Window(title, size) { App() }` + `NSApp?.run()`
+- **Not** the JVM `application { }` API — different Window signature
+- Experimental: `org.jetbrains.compose.experimental.macos.enabled=true`
+
+### Desktop (JVM — Windows, Linux, macOS)
+- `compose.desktop` with `mainClass = com.shashank.portfolio.MainKt`
+- Package: `packageMsi` (Windows), `packageDmg` (macOS), `packageDeb` (Linux)
+- Build Windows `.msi` **on Windows** (or Windows CI)
+
+---
+
+## Build Commands (macOS/Linux shell)
+
+```bash
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)   # macOS; use JDK 17 path on Win/Linux
+
+# Web
+./gradlew :composeApp:wasmJsBrowserDevelopmentRun
+./gradlew :composeApp:wasmJsBrowserProductionWebpack
+
+# Android
+./gradlew :composeApp:installDebug
+
+# Desktop (JVM — all desktop OS)
+./gradlew :composeApp:run
+./gradlew :composeApp:packageDmg    # macOS installer
+./gradlew :composeApp:packageMsi    # Windows installer (run on Windows)
+./gradlew :composeApp:packageDeb    # Linux
+
+# macOS native
+./gradlew :composeApp:runDebugExecutableMacosArm64   # Apple Silicon
+./gradlew :composeApp:runDebugExecutableMacosX64       # Intel Mac
+
+# Compile checks (CI-friendly)
+./gradlew :composeApp:compileKotlinWasmJs
+./gradlew :composeApp:compileDebugKotlinAndroid
+./gradlew :composeApp:compileKotlinDesktop
+./gradlew :composeApp:compileKotlinIosSimulatorArm64
+./gradlew :composeApp:compileKotlinMacosArm64
+```
+
+---
+
+## Key Features (Do Not Break Accidentally)
+
+- **14 theme modes** with dropdown overlay (no layout jump)
+- **Physics/canvas background** (`InteractiveDevBackground`, `PhysicsDeviceEngine`) — desktop only
+- **Sticky nav** with `statusBarsPadding` on mobile
+- **Scroll-based section navigation** via `SectionScrollRegistry`
+- **Recruiter quick bar** + floating “Let’s Talk” FAB
+- **Responsive breakpoints** in `Responsive.kt` (mobile &lt;600dp, tablet, desktop)
+
+---
+
+## About Shashank (Context for Content Edits)
+
+**Role:** SDE-1 — Android & Cross-Platform Mobile Engineer at Lifease Solutions LLP  
+**Focus:** Android Mobile, Android TV (Leanback), Kotlin, Jetpack Compose, KMP/CMP, iOS (SwiftUI/UIKit), cross-platform (RN, Flutter)
+
+**Notable work:**
+- CricRadio — 100K+ downloads, real-time cricket (Kotlin, Compose, Ktor, Socket.IO)
+- RRBMU Studies — university app, 4.6★ rating
+- SkinLens — ML/TFLite skin disease detection
+- Bristol University — Federated Learning research collaboration
+- 95% data compression optimization at Lifease Solutions
+
+**Core skills:** Kotlin, Java, Jetpack Compose, CMP, MVVM/MVI/Clean Architecture, Room, Ktor, Firebase, TFLite, testing (JUnit, Espresso, MockK)
+
+When editing portfolio copy, keep tone **professional, concise, recruiter-friendly**. Data lives in `PortfolioDataSource.kt` — keep it consistent with resume facts.
+
+---
+
+## AI Assistant Checklist Before Submitting Changes
+
+- [ ] UI changes in `commonMain` unless platform-specific
+- [ ] New platform API → add `expect` in common + `actual` in every target source set
+- [ ] Wasm: no emoji labels; test `ComposeTarget` container if touching web entry
+- [ ] Touch platforms: verify responsive config still disables heavy animations on mobile
+- [ ] Content changes only in `PortfolioDataSource.kt` when possible
+- [ ] Run relevant compile task for touched targets
+- [ ] JDK 17 — do not upgrade Kotlin/Compose versions without user request
 
 ---
 

@@ -26,6 +26,7 @@ import com.shashank.portfolio.presentation.theme.Layout
 import com.shashank.portfolio.presentation.theme.LocalExtendedColors
 import com.shashank.portfolio.presentation.theme.ScreenSize
 import com.shashank.portfolio.presentation.theme.Spacing
+import com.shashank.portfolio.presentation.theme.responsiveSectionPadding
 import com.shashank.portfolio.presentation.theme.screenSize
 
 @Composable
@@ -36,7 +37,7 @@ fun ProjectsSection(
 ) {
     val animState = rememberScrollAnimation(isVisible)
 
-    BoxWithConstraints(modifier = modifier.fillMaxWidth().padding(vertical = Spacing.section)) {
+    BoxWithConstraints(modifier = modifier.fillMaxWidth().responsiveSectionPadding()) {
         val columns = when (screenSize(maxWidth)) {
             ScreenSize.Mobile -> 1
             ScreenSize.Tablet -> 2
