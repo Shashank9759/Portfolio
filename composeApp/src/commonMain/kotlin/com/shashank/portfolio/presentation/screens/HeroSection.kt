@@ -22,6 +22,7 @@ import com.shashank.portfolio.presentation.animation.staggerDelay
 import com.shashank.portfolio.presentation.components.*
 import com.shashank.portfolio.presentation.navigation.PortfolioSection
 import com.shashank.portfolio.presentation.theme.ExtendedColors
+import com.shashank.portfolio.presentation.theme.Layout
 import com.shashank.portfolio.presentation.theme.LocalExtendedColors
 import com.shashank.portfolio.presentation.theme.ScreenSize
 import com.shashank.portfolio.presentation.theme.Spacing
@@ -52,8 +53,16 @@ fun HeroSection(
                 Column(
                     modifier = Modifier
                         .scrollReveal(animState)
-                        .padding(top = if (isMobile) 48.dp else 64.dp, bottom = Spacing.section),
+                        .padding(
+                            top = Layout.navTotalHeight + if (isMobile) Spacing.lg else Spacing.xl,
+                            bottom = Spacing.section,
+                        ),
                 ) {
+                    RecruiterQuickBar(
+                        personalInfo = personalInfo,
+                        modifier = Modifier.padding(bottom = Spacing.xl),
+                    )
+
                     if (isMobile) {
                         HeroAvatar(
                             modifier = Modifier

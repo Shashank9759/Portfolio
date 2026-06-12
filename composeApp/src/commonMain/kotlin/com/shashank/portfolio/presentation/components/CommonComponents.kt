@@ -27,12 +27,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.shashank.portfolio.openUrl
 import com.shashank.portfolio.presentation.animation.hoverScale
+import com.shashank.portfolio.presentation.animation.idleFloat
 import com.shashank.portfolio.presentation.animation.rememberHoverTilt
 import com.shashank.portfolio.presentation.animation.rememberPulseScale
 import com.shashank.portfolio.presentation.animation.rememberShimmerPhase
 import com.shashank.portfolio.presentation.theme.Layout
 import com.shashank.portfolio.presentation.theme.LocalExtendedColors
 import com.shashank.portfolio.presentation.theme.MonoFont
+import com.shashank.portfolio.presentation.components.canvas.AnimatedSectionUnderline
 import com.shashank.portfolio.presentation.theme.Spacing
 
 /** Elevated surface card — clean borders, no heavy glass effect. */
@@ -73,7 +75,10 @@ fun SectionHeader(
     val extended = LocalExtendedColors.current
     val alignment = if (centered) Alignment.CenterHorizontally else Alignment.Start
 
-    Column(modifier = modifier, horizontalAlignment = alignment) {
+    Column(
+        modifier = modifier.idleFloat(amplitude = 4f, durationMs = 4200),
+        horizontalAlignment = alignment,
+    ) {
         Text(
             text = title,
             style = MaterialTheme.typography.headlineLarge,
@@ -82,13 +87,7 @@ fun SectionHeader(
             fontWeight = FontWeight.Bold,
         )
         Spacer(modifier = Modifier.height(Spacing.md))
-        Box(
-            modifier = Modifier
-                .width(56.dp)
-                .height(3.dp)
-                .clip(RoundedCornerShape(2.dp))
-                .background(extended.gradientBrush),
-        )
+        AnimatedSectionUnderline(width = 72f)
     }
 }
 

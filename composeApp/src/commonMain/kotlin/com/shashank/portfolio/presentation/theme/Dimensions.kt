@@ -25,7 +25,9 @@ object Spacing {
 
 object Layout {
     val maxContentWidth = 1200.dp
-    val navHeight = 72.dp
+    val navHeight = 56.dp
+    val navVerticalPadding = 12.dp
+    val navTotalHeight = navHeight + navVerticalPadding * 2
     val cardRadius = 16.dp
     val buttonRadius = 12.dp
 }

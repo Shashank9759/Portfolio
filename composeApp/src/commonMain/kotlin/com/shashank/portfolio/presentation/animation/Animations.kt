@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
@@ -174,7 +175,37 @@ fun rememberHoverTilt(): Modifier {
         }
 }
 
-fun Modifier.hoverScale(scale: Float): Modifier = composed { this.scale(scale) }
+fun Modifier.hoverScale(scale: Float): Modifier = composed {
+    this.graphicsLayer {
+        scaleX = scale
+        scaleY = scale
+    }
+}
+
+/** Gentle idle bob for cards, headers, and decorative elements. */
+@Composable
+fun Modifier.idleFloat(amplitude: Float = 6f, durationMs: Int = 3600): Modifier = composed {
+    val infinite = rememberInfiniteTransition(label = "idleFloat")
+    val offsetY by infinite.animateFloat(
+        initialValue = -amplitude / 2f,
+        targetValue = amplitude / 2f,
+        animationSpec = infiniteRepeatable(tween(durationMs, easing = FastOutSlowInEasing), RepeatMode.Reverse),
+        label = "idleY",
+    )
+    this.graphicsLayer { translationY = offsetY }
+}
+
+/** Mouse-reactive parallax shift for content layers. */
+fun Modifier.mouseParallax(pointer: Offset, canvasWidth: Float, canvasHeight: Float, strength: Float = 12f): Modifier =
+    composed {
+        if (canvasWidth <= 0f || canvasHeight <= 0f) return@composed this
+        val nx = (pointer.x / canvasWidth - 0.5f) * 2f
+        val ny = (pointer.y / canvasHeight - 0.5f) * 2f
+        this.graphicsLayer {
+            translationX = nx * strength
+            translationY = ny * strength * 0.6f
+        }
+    }
 
 /** Stagger delay helper for list items. */
 fun staggerDelay(index: Int, baseMs: Int = 80): Int = index * baseMs

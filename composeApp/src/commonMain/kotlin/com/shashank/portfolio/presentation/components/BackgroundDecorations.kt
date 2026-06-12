@@ -158,8 +158,8 @@ fun SectionContentBackdrop(modifier: Modifier = Modifier) {
         drawRect(
             brush = Brush.verticalGradient(
                 colors = listOf(
-                    bgColor.copy(alpha = 0.72f),
-                    bgColor.copy(alpha = 0.82f),
+                    bgColor.copy(alpha = 0.52f),
+                    bgColor.copy(alpha = 0.68f),
                 ),
             ),
         )

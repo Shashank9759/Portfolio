@@ -1,8 +1,8 @@
 package com.shashank.portfolio.presentation.theme
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -24,86 +24,45 @@ data class ExtendedColors(
 )
 
 val LocalExtendedColors = staticCompositionLocalOf {
-    ExtendedColors(
-        muted = MutedDark,
-        accent = AccentDark,
-        glass = GlassDark,
-        border = BorderDark,
-        surfaceElevated = SurfaceElevatedDark,
-        gradientBrush = Brush.linearGradient(listOf(GradientStartDark, GradientEndDark)),
-        nameGradientBrush = Brush.linearGradient(listOf(PrimaryDark, SecondaryDark)),
-        cardGradient = Brush.linearGradient(listOf(SurfaceElevatedDark, SurfaceDark)),
-    )
+    paletteFor(PortfolioThemeMode.Midnight).extended
 }
 
-/** Defaults to dark theme — standard for professional developer portfolios. */
+val LocalThemePalette = staticCompositionLocalOf {
+    paletteFor(PortfolioThemeMode.Midnight)
+}
+
+/** Global theme mode — cycle or pick from ThemeModePicker. */
 object ThemeState {
-    var isDarkTheme by mutableStateOf(true)
+    var currentMode by mutableStateOf(PortfolioThemeMode.Midnight)
+
+    fun cycle() {
+        val modes = PortfolioThemeMode.entries
+        val next = (modes.indexOf(currentMode) + 1) % modes.size
+        currentMode = modes[next]
+    }
 }
-
-private val LightColorScheme = lightColorScheme(
-    primary = PrimaryLight,
-    onPrimary = Color.White,
-    primaryContainer = PrimaryLight.copy(alpha = 0.1f),
-    secondary = SecondaryLight,
-    onSecondary = Color.White,
-    background = BackgroundLight,
-    onBackground = OnBackgroundLight,
-    surface = SurfaceLight,
-    onSurface = OnSurfaceLight,
-    surfaceVariant = SurfaceElevatedLight,
-    onSurfaceVariant = MutedLight,
-    outline = BorderLight,
-)
-
-private val DarkColorScheme = darkColorScheme(
-    primary = PrimaryDark,
-    onPrimary = Color.White,
-    primaryContainer = PrimaryDark.copy(alpha = 0.12f),
-    secondary = SecondaryDark,
-    onSecondary = Color.White,
-    background = BackgroundDark,
-    onBackground = OnBackgroundDark,
-    surface = SurfaceDark,
-    onSurface = OnSurfaceDark,
-    surfaceVariant = SurfaceElevatedDark,
-    onSurfaceVariant = MutedDark,
-    outline = BorderDark,
-)
 
 @Composable
 fun PortfolioTheme(
-    darkTheme: Boolean = ThemeState.isDarkTheme,
+    mode: PortfolioThemeMode = ThemeState.currentMode,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
-    val extendedColors = if (darkTheme) {
-        ExtendedColors(
-            muted = MutedDark,
-            accent = AccentDark,
-            glass = GlassDark,
-            border = BorderDark,
-            surfaceElevated = SurfaceElevatedDark,
-            gradientBrush = Brush.linearGradient(listOf(GradientStartDark, GradientEndDark)),
-            nameGradientBrush = Brush.linearGradient(listOf(Color(0xFFFAFAFA), PrimaryDark, SecondaryDark)),
-            cardGradient = Brush.linearGradient(listOf(SurfaceElevatedDark.copy(alpha = 0.6f), SurfaceDark)),
-        )
-    } else {
-        ExtendedColors(
-            muted = MutedLight,
-            accent = AccentLight,
-            glass = GlassLight,
-            border = BorderLight,
-            surfaceElevated = SurfaceElevatedLight,
-            gradientBrush = Brush.linearGradient(listOf(GradientStartLight, GradientEndLight)),
-            nameGradientBrush = Brush.linearGradient(listOf(OnBackgroundLight, PrimaryLight, SecondaryLight)),
-            cardGradient = Brush.linearGradient(listOf(SurfaceLight, SurfaceElevatedLight)),
-        )
-    }
+    val palette = paletteFor(mode)
+    // Smooth cross-fade between theme switches
+    val animatedBg by animateColorAsState(palette.colorScheme.background, tween(600), label = "bg")
+    val animatedPrimary by animateColorAsState(palette.colorScheme.primary, tween(600), label = "pri")
 
-    CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
+    val scheme = palette.colorScheme.copy(
+        background = animatedBg,
+        primary = animatedPrimary,
+    )
+
+    CompositionLocalProvider(
+        LocalExtendedColors provides palette.extended,
+        LocalThemePalette provides palette,
+    ) {
         MaterialTheme(
-            colorScheme = colorScheme,
+            colorScheme = scheme,
             typography = PortfolioTypography,
             content = content,
         )

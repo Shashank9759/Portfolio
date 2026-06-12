@@ -42,6 +42,16 @@ fun ContactSection(
             ) {
                 SectionHeader(title = "Get In Touch", centered = true)
 
+                Spacer(modifier = Modifier.height(Spacing.lg))
+
+                Text(
+                    text = "Recruiters & clients — reach out directly. I typically respond within 24 hours.",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = LocalExtendedColors.current.muted,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.md),
+                )
+
                 Spacer(modifier = Modifier.height(Spacing.xxl))
 
                 if (isMobile) {

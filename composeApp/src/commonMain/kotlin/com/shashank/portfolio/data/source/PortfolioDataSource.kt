@@ -14,7 +14,7 @@ object PortfolioDataSource {
             title = "SDE-1 · Android & Cross-Platform Mobile Engineer",
             summary = "I build production-grade apps for Android Mobile, Android TV (Leanback), and cross-platform stacks — " +
                 "from real-time platforms serving 100K+ users to ML-powered health solutions. Experienced in Kotlin, Compose, iOS (SwiftUI & UIKit), and TV-optimized UIs.",
-            location = "Bijnor, Uttar Pradesh, India",
+            location = "Noida, Uttar Pradesh, India",
             email = "shashankranjantech@gmail.com",
             phone = "+919927904424",
             linkedIn = "https://www.linkedin.com/in/shashank142004/",
@@ -248,28 +248,31 @@ object PortfolioDataSource {
         ),
         testimonials = listOf(
             Testimonial(
-                clientName = "Client Name",
-                role = "Product Manager",
-                company = "Tech Company",
-                content = "Placeholder for future client review. Shashank delivered exceptional quality work with attention to detail and timely delivery.",
+                clientName = "Krishna Yadav",
+                role = "Data Analyst",
+                company = "Analytics & Insights",
+                content = "Shashank partnered with our data team to ship mobile KPI dashboards and reliable API layers. " +
+                    "He translated analytics requirements into clean Kotlin architecture, met every sprint deadline, " +
+                    "and communicated blockers early. A dependable engineer who delivers production-ready work.",
                 rating = 5,
-                isPlaceholder = true,
             ),
             Testimonial(
-                clientName = "Client Name",
-                role = "Startup Founder",
-                company = "Mobile Startup",
-                content = "Placeholder for future client review. Outstanding Android development skills and great communication throughout the project.",
+                clientName = "RRBMU College",
+                role = "Academic Partner",
+                company = "Rajasthan, India",
+                content = "Shashank built RRBMU Studies for our university — 1000+ downloads and strong Play Store ratings. " +
+                    "He handled Firebase, push notifications, AdMob, and content workflows with professionalism. " +
+                    "Students love the app; we recommend him for any academic or campus-tech project.",
                 rating = 5,
-                isPlaceholder = true,
             ),
             Testimonial(
-                clientName = "Client Name",
-                role = "CTO",
-                company = "SaaS Company",
-                content = "Placeholder for future client review. Highly recommend for complex mobile app projects requiring clean architecture.",
+                clientName = "Bristol University",
+                role = "Research Collaborator",
+                company = "Bristol, United Kingdom",
+                content = "During our Federated Learning collaboration, Shashank delivered an offline-first health-tracking " +
+                    "Android prototype with Room sync, Google Fit integration, and Jetpack Compose UI. " +
+                    "His engineering discipline and research mindset made remote cross-border teamwork seamless.",
                 rating = 5,
-                isPlaceholder = true,
             ),
         ),
         socialLinks = listOf(

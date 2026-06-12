@@ -44,7 +44,7 @@ fun TestimonialsSection(
                 Spacer(modifier = Modifier.height(Spacing.md))
 
                 Text(
-                    text = "Placeholder reviews — real client testimonials coming soon.",
+                    text = "Feedback from collaborators, academic partners, and clients.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = LocalExtendedColors.current.muted,
                 )
