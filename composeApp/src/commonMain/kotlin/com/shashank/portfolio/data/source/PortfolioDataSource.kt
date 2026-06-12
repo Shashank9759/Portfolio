@@ -49,7 +49,7 @@ object PortfolioDataSource {
         ),
         experience = listOf(
             Experience(
-                company = "Lifease Solutions LLM",
+                company = "Lifease Solutions LLP",
                 role = "SDE-1 - Android",
                 location = "Noida, Uttar Pradesh, India",
                 period = "June 2025 – Present",
