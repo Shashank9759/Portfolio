@@ -145,6 +145,7 @@ private fun DesktopNavigationBar(
 private fun navLabel(section: PortfolioSection, compact: Boolean): String = when {
     compact && section == PortfolioSection.Testimonials -> "Reviews"
     compact && section == PortfolioSection.Experience -> "Work"
+    compact && section == PortfolioSection.Organizations -> "Clients"
     else -> section.label
 }
 

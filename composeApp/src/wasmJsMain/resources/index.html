@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Shashank Ranjan - SDE-1 Android & Cross-Platform Mobile Developer. Portfolio showcasing Kotlin, Jetpack Compose, KMP, and mobile development expertise.">
+    <meta name="description" content="Shashank Ranjan - Android and Multiplatform Developer. Portfolio showcasing Kotlin, Jetpack Compose, KMP, and mobile development expertise.">
     <meta name="keywords" content="Android Developer, Kotlin, Jetpack Compose, Kotlin Multiplatform, Compose Multiplatform, Mobile Developer, Freelance">
     <meta name="author" content="Shashank Ranjan">
     <meta property="og:title" content="Shashank Ranjan | Mobile Developer Portfolio">
-    <meta property="og:description" content="SDE-1 Android & Cross-Platform Mobile Developer specializing in Kotlin, Jetpack Compose, and KMP.">
+    <meta property="og:description" content="Android and Multiplatform Developer specializing in Kotlin, Jetpack Compose, and KMP.">
     <meta property="og:type" content="website">
     <title>Shashank Ranjan | Mobile Developer Portfolio</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>SR</text></svg>">
@@ -30,21 +30,20 @@
             color: #F1F5F9;
             background-color: #0B0F1A;
             z-index: 10;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.2s ease;
         }
         #loading .spinner {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border: 3px solid rgba(129, 140, 248, 0.2);
             border-top-color: #818CF8;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        /* ComposeViewport creates a <canvas> inside this container — must be a div, not canvas */
         #ComposeTarget {
             position: fixed;
             inset: 0;
@@ -65,29 +64,27 @@
     <p>Loading Portfolio...</p>
 </div>
 <div id="ComposeTarget"></div>
-<script type="application/javascript" src="portfolio.js"></script>
+<script type="application/javascript" src="portfolio.js" defer></script>
 <script>
     function hideLoader() {
         const loader = document.getElementById('loading');
-        if (loader) {
+        if (loader && loader.style.display !== 'none') {
             loader.style.opacity = '0';
-            setTimeout(() => loader.style.display = 'none', 300);
+            setTimeout(() => { loader.style.display = 'none'; }, 200);
         }
     }
 
-    // Hide loader only after Compose mounts its canvas and sizes it
     const container = document.getElementById('ComposeTarget');
     const observer = new MutationObserver(() => {
         const canvas = container.querySelector('canvas');
-        if (canvas && canvas.width > 0 && canvas.height > 0) {
-            requestAnimationFrame(() => requestAnimationFrame(hideLoader));
+        if (canvas) {
+            hideLoader();
             observer.disconnect();
         }
     });
-    observer.observe(container, { childList: true, subtree: true, attributes: true, attributeFilter: ['width', 'height'] });
+    observer.observe(container, { childList: true, subtree: true });
 
-    // Fallback: hide loader after 30s if something went wrong (keeps spinner visible on failure)
-    setTimeout(() => observer.disconnect(), 30000);
+    window.addEventListener('load', () => setTimeout(hideLoader, 12000));
 </script>
 </body>
 </html>

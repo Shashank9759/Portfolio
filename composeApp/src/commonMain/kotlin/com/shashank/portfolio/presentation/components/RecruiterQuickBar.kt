@@ -54,7 +54,7 @@ fun RecruiterQuickBar(
                 verticalArrangement = Arrangement.spacedBy(Spacing.sm),
             ) {
                 QuickInfoItem(
-                    icon = Icons.Default.Work,
+                    icon = Icons.Default.Person,
                     text = "Open to freelance & full-time",
                     onClick = null,
                 )
@@ -82,7 +82,7 @@ fun RecruiterQuickBar(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 QuickInfoItem(
-                    icon = Icons.Default.Work,
+                    icon = Icons.Default.Person,
                     text = "Open to freelance & full-time",
                     onClick = null,
                     compact = true,

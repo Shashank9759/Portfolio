@@ -1,6 +1,7 @@
 package com.shashank.portfolio.presentation
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,6 +46,11 @@ fun App() {
         val responsive = LocalResponsiveConfig.current
         val viewModel = remember { PortfolioViewModel() }
         val data = viewModel.portfolioData
+
+        LaunchedEffect(Unit) {
+            kotlinx.coroutines.delay(2500)
+            viewModel.refreshFromApi()
+        }
         val scrollState = rememberScrollState()
         val coroutineScope = rememberCoroutineScope()
         val sectionRegistry = rememberSectionScrollRegistry()
@@ -58,6 +64,7 @@ fun App() {
         val aboutVisibility = rememberVisibilityState()
         val skillsVisibility = rememberVisibilityState()
         val experienceVisibility = rememberVisibilityState()
+        val organizationsVisibility = rememberVisibilityState()
         val projectsVisibility = rememberVisibilityState()
         val servicesVisibility = rememberVisibilityState()
         val testimonialsVisibility = rememberVisibilityState()
@@ -79,7 +86,7 @@ fun App() {
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background,
             ) {
-                Box(modifier = Modifier.fillMaxSize()) {
+                BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
                     val trackPointer = responsive.backgroundIntensity != BackgroundIntensity.Minimal
                     Box(
                         modifier = Modifier
@@ -151,6 +158,13 @@ fun App() {
                                         .sectionAnchor(PortfolioSection.Experience, sectionRegistry)
                                         .onVisibilityChanged(experienceVisibility),
                                 )
+                                OrganizationsSection(
+                                    organizations = data.clientOrganizations,
+                                    isVisible = organizationsVisibility.isVisible,
+                                    modifier = Modifier
+                                        .sectionAnchor(PortfolioSection.Organizations, sectionRegistry)
+                                        .onVisibilityChanged(organizationsVisibility),
+                                )
                                 ProjectsSection(
                                     projects = data.projects,
                                     isVisible = projectsVisibility.isVisible,
@@ -161,6 +175,7 @@ fun App() {
                                 ServicesSection(
                                     services = data.freelanceServices,
                                     isVisible = servicesVisibility.isVisible,
+                                    isLiveData = viewModel.isLiveData,
                                     modifier = Modifier
                                         .sectionAnchor(PortfolioSection.Services, sectionRegistry)
                                         .onVisibilityChanged(servicesVisibility),

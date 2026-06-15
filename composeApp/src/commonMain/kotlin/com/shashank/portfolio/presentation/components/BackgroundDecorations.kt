@@ -159,8 +159,8 @@ fun SectionContentBackdrop(
 ) {
     val bgColor = MaterialTheme.colorScheme.background
     val (topAlpha, bottomAlpha) = when (intensity) {
-        BackgroundIntensity.Full -> 0.52f to 0.68f
-        BackgroundIntensity.Light -> 0.62f to 0.78f
+        BackgroundIntensity.Full -> 0.48f to 0.62f
+        BackgroundIntensity.Light -> 0.58f to 0.72f
         BackgroundIntensity.Minimal -> 0.78f to 0.88f
     }
     Canvas(modifier = modifier.fillMaxSize()) {

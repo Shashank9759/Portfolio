@@ -28,15 +28,50 @@ import androidx.compose.ui.unit.dp
 import com.shashank.portfolio.openUrl
 import com.shashank.portfolio.presentation.animation.hoverScale
 import com.shashank.portfolio.presentation.animation.idleFloat
-import com.shashank.portfolio.presentation.animation.rememberHoverTilt
-import com.shashank.portfolio.presentation.animation.rememberPulseScale
 import com.shashank.portfolio.presentation.animation.rememberShimmerPhase
+import com.shashank.portfolio.presentation.animation.rememberPulseScale
 import com.shashank.portfolio.presentation.theme.Layout
 import com.shashank.portfolio.presentation.theme.LocalExtendedColors
 import com.shashank.portfolio.presentation.theme.LocalResponsiveConfig
 import com.shashank.portfolio.presentation.theme.MonoFont
 import com.shashank.portfolio.presentation.components.canvas.AnimatedSectionUnderline
 import com.shashank.portfolio.presentation.theme.Spacing
+
+/** Elevated card with subtle gradient border on hover. */
+@Composable
+fun GameGlassCard(
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    val extended = LocalExtendedColors.current
+    val shape = RoundedCornerShape(Layout.cardRadius)
+    val interactionSource = remember { MutableInteractionSource() }
+    val isHovered by interactionSource.collectIsHoveredAsState()
+    val primary = MaterialTheme.colorScheme.primary
+
+    Column(
+        modifier = modifier
+            .shadow(if (isHovered) 12.dp else 6.dp, shape, ambientColor = Color.Black.copy(alpha = 0.2f))
+            .clip(shape)
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.95f))
+            .border(
+                width = 1.dp,
+                brush = Brush.linearGradient(
+                    colors = listOf(
+                        primary.copy(alpha = if (isHovered) 0.5f else 0.25f),
+                        extended.accent.copy(alpha = if (isHovered) 0.35f else 0.15f),
+                        primary.copy(alpha = if (isHovered) 0.4f else 0.2f),
+                    ),
+                ),
+                shape = shape,
+            )
+            .hoverable(interactionSource)
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+            .padding(Spacing.lg),
+        content = content,
+    )
+}
 
 /** Elevated surface card — clean borders, no heavy glass effect. */
 @Composable
@@ -50,12 +85,8 @@ fun GlassCard(
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
 
-    val enableHover = LocalResponsiveConfig.current.enableHoverEffects
-    val tiltModifier = rememberHoverTilt()
-
     Column(
         modifier = modifier
-            .then(if (enableHover) tiltModifier else Modifier)
             .shadow(if (isHovered) 16.dp else 6.dp, shape, ambientColor = Color.Black.copy(alpha = 0.25f))
             .clip(shape)
             .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.95f))
@@ -350,7 +381,7 @@ fun StatCard(
 
 @Composable
 fun SocialIconButton(
-    icon: ImageVector,
+    iconKey: String,
     label: String,
     url: String,
     modifier: Modifier = Modifier,
@@ -371,11 +402,11 @@ fun SocialIconButton(
                 else extended.surfaceElevated,
             ),
     ) {
-        Icon(
-            imageVector = icon,
+        BrandLogoImage(
+            iconKey = iconKey,
             contentDescription = label,
-            tint = if (isHovered) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.size(20.dp),
+            modifier = Modifier.fillMaxSize(),
+            fillContainer = true,
         )
     }
 }
@@ -385,16 +416,18 @@ fun iconForKey(key: String): ImageVector = when (key) {
     "linkedin" -> Icons.Default.Link
     "github" -> Icons.Default.Code
     "email" -> Icons.Default.Email
-    "resume" -> Icons.Default.Description
-    "whatsapp" -> Icons.Default.Chat
+    "resume" -> Icons.Default.Info
+    "whatsapp" -> Icons.Default.Email
     "android" -> Icons.Default.PhoneAndroid
-    "tv" -> Icons.Default.Tv
-    "ios", "swift" -> Icons.Default.PhoneIphone
-    "kmp", "cmp", "cross" -> Icons.Default.Devices
+    "tv" -> Icons.Default.Home
+    "ios", "swift" -> Icons.Default.Phone
+    "kmp", "cmp", "cross" -> Icons.Default.Share
     "api" -> Icons.Default.Cloud
-    "ui" -> Icons.Default.Palette
-    "perf" -> Icons.Default.Speed
-    "support" -> Icons.Default.Support
+    "ui" -> Icons.Default.Edit
+    "perf" -> Icons.Default.Star
+    "support" -> Icons.Default.Info
+    "ai" -> Icons.Default.Star
+    "topmate" -> Icons.Default.Star
     "tools" -> Icons.Default.Build
     else -> Icons.Default.Star
 }
@@ -411,6 +444,7 @@ fun ProjectPlaceholderImage(
         "skinlens" -> listOf(Color(0xFF831843), Color(0xFFEC4899))
         "yaaddiary" -> listOf(Color(0xFF164E63), Color(0xFF06B6D4))
         "collegereg" -> listOf(Color(0xFF1E3A8A), Color(0xFF3B82F6))
+        "dhm3" -> listOf(Color(0xFF7F1D1D), Color(0xFFDC2626))
         else -> listOf(Color(0xFF27272A), Color(0xFF3B82F6))
     }
 
@@ -421,7 +455,11 @@ fun ProjectPlaceholderImage(
         contentAlignment = Alignment.Center,
     ) {
         Icon(
-            imageVector = Icons.Default.PhoneAndroid,
+            imageVector = when (imageKey) {
+                "collegereg" -> Icons.Default.School
+                "dhm3" -> Icons.Default.Favorite
+                else -> Icons.Default.PhoneAndroid
+            },
             contentDescription = null,
             tint = Color.White.copy(alpha = 0.5f),
             modifier = Modifier.size(48.dp),

@@ -1,10 +1,5 @@
 package com.shashank.portfolio.presentation.screens
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.hoverable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material.icons.Icons
@@ -13,7 +8,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -43,6 +37,8 @@ fun ProjectsSection(
             ScreenSize.Tablet -> 2
             ScreenSize.Desktop -> 3
         }
+        val currentScreen = screenSize(maxWidth)
+        val isMobile = currentScreen == ScreenSize.Mobile
 
         ContentContainer {
             Column(
@@ -61,8 +57,12 @@ fun ProjectsSection(
                             horizontalArrangement = Arrangement.spacedBy(Spacing.lg),
                         ) {
                             rowProjects.forEachIndexed { colIndex, project ->
-                                val delay = (rowIndex * columns + colIndex) * 120
-                                val cardAnim = rememberScrollAnimation(isVisible, delayMillis = delay)
+                                val delay = if (isMobile) 0 else (rowIndex * columns + colIndex) * 120
+                                val cardAnim = rememberScrollAnimation(
+                                    isVisible = isVisible,
+                                    delayMillis = delay,
+                                    enable3D = !isMobile,
+                                )
                                 ProjectCard(
                                     project = project,
                                     modifier = Modifier
@@ -87,20 +87,8 @@ fun ProjectCard(
     project: Project,
     modifier: Modifier = Modifier,
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isHovered by interactionSource.collectIsHoveredAsState()
-    val scale by animateFloatAsState(
-        targetValue = if (isHovered) 1.02f else 1f,
-        animationSpec = tween(200),
-        label = "projectScale",
-    )
-
-    GlassCard(
-        modifier = modifier
-            .hoverable(interactionSource)
-            .scale(scale),
-    ) {
-        ProjectPlaceholderImage(
+    GlassCard(modifier = modifier) {
+        ProjectImage(
             imageKey = project.imageKey,
             modifier = Modifier
                 .fillMaxWidth()
@@ -163,7 +151,7 @@ fun ProjectCard(
             project.liveUrl?.let { url ->
                 SmallActionButton(
                     text = "Live",
-                    icon = Icons.Default.OpenInNew,
+                    icon = Icons.Default.Share,
                     onClick = { openUrl(url) },
                 )
             }

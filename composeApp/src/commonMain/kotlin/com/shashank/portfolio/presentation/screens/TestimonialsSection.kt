@@ -87,8 +87,8 @@ private fun TestimonialCard(
 ) {
     GlassCard(modifier = modifier.fillMaxWidth()) {
         Icon(
-            imageVector = Icons.Default.FormatQuote,
-            contentDescription = null,
+            imageVector = Icons.Default.Star,
+            contentDescription = "Quote",
             tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
             modifier = Modifier.size(32.dp),
         )

@@ -9,6 +9,7 @@ enum class PortfolioSection(val id: String, val label: String) {
     About("about", "About"),
     Skills("skills", "Skills"),
     Experience("experience", "Experience"),
+    Organizations("organizations", "Clients"),
     Projects("projects", "Projects"),
     Services("services", "Services"),
     Testimonials("testimonials", "Testimonials"),

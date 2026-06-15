@@ -69,7 +69,7 @@ fun ProvideResponsiveLayout(content: @Composable () -> Unit) {
                     sectionSpacing = 64.dp,
                     heroTopPadding = 24.dp,
                     avatarSize = 220.dp,
-                    backgroundIntensity = if (touch) BackgroundIntensity.Light else BackgroundIntensity.Full,
+                    backgroundIntensity = if (touch) BackgroundIntensity.Minimal else BackgroundIntensity.Light,
                     enableHoverEffects = !touch,
                     contentBottomPadding = 72.dp,
                     fabBottomPadding = 20.dp,

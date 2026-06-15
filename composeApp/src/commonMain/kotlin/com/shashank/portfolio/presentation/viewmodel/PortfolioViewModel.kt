@@ -14,7 +14,18 @@ import com.shashank.portfolio.openEmail
 class PortfolioViewModel(
     private val repository: PortfolioRepository = PortfolioRepository(),
 ) {
-    val portfolioData: PortfolioData = repository.getPortfolioData()
+    var portfolioData by mutableStateOf(repository.getLocalPortfolioData())
+        private set
+
+    var isLiveData by mutableStateOf(false)
+        private set
+
+    suspend fun refreshFromApi() {
+        repository.fetchRemotePortfolio()?.let { remote ->
+            portfolioData = remote
+            isLiveData = true
+        }
+    }
 
     var contactName by mutableStateOf("")
     var contactSubject by mutableStateOf("")

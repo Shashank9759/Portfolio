@@ -115,15 +115,10 @@ private fun ContactInfoPanel(
             fontWeight = FontWeight.SemiBold,
         )
         Spacer(modifier = Modifier.height(Spacing.md))
-        Row(horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-            socialLinks.forEach { link ->
-                SocialIconButton(
-                    icon = iconForKey(link.icon),
-                    label = link.name,
-                    url = link.url,
-                )
-            }
-        }
+
+        SocialLinksGrid(
+            links = socialLinks.map { SocialLinkItem(it.name, it.icon, it.url) },
+        )
     }
 }
 
@@ -169,8 +164,8 @@ private fun ContactFormPanel(
         )
         Spacer(modifier = Modifier.height(Spacing.sm))
         Text(
-            text = "Fill in the details below. Clicking Send opens Gmail in a new tab with your " +
-                "subject formatted as \"Subject - Your Name\" and message pre-filled.",
+            text = "Fill in the details below. Send opens Gmail compose with your subject as " +
+                "\"Subject - Your Name\" and message pre-filled (works on web, desktop, and mobile).",
             style = MaterialTheme.typography.bodySmall,
             color = LocalExtendedColors.current.muted,
         )

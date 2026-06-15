@@ -39,16 +39,21 @@ fun FloatingContactFab(
     val compact = responsive.screen == ScreenSize.Mobile
     val interactionSource = remember { MutableInteractionSource() }
     val hovered by interactionSource.collectIsHoveredAsState()
+    val animateFab = responsive.enableHoverEffects && !compact
 
     val infinite = rememberInfiniteTransition(label = "fabPulse")
     val pulse by infinite.animateFloat(
         initialValue = 1f,
-        targetValue = if (compact) 1.03f else 1.06f,
+        targetValue = 1.06f,
         animationSpec = infiniteRepeatable(tween(1800, easing = FastOutSlowInEasing), RepeatMode.Reverse),
         label = "fabPulseScale",
     )
 
-    val scale = if (hovered && responsive.enableHoverEffects) 1.1f else pulse
+    val scale = when {
+        hovered && responsive.enableHoverEffects -> 1.1f
+        animateFab -> pulse
+        else -> 1f
+    }
 
     Row(
         modifier = modifier

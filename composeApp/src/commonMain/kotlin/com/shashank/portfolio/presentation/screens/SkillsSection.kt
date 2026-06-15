@@ -5,7 +5,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.shashank.portfolio.domain.model.SkillCategory
 import com.shashank.portfolio.presentation.animation.rememberAnimatedProgress
@@ -77,21 +76,11 @@ private fun SkillCategoryCard(
     modifier: Modifier = Modifier,
 ) {
     GlassCard(modifier = modifier.fillMaxWidth()) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                imageVector = iconForKey(category.icon),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(24.dp),
-            )
-            Spacer(modifier = Modifier.width(Spacing.sm))
-            Text(
-                text = category.name,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-            )
-        }
-        Spacer(modifier = Modifier.height(Spacing.lg))
+        SkillCategoryHeader(
+            categoryName = category.name,
+            iconKey = category.icon,
+            modifier = Modifier.padding(bottom = Spacing.lg),
+        )
         category.skills.forEach { skill ->
             val progress = rememberAnimatedProgress(skill.proficiency, isVisible)
             SkillBar(

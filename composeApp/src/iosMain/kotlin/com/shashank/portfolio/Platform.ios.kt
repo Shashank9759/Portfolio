@@ -1,6 +1,6 @@
 package com.shashank.portfolio
 
-import com.shashank.portfolio.util.encodeUriComponent
+import com.shashank.portfolio.util.buildMailtoUrl
 import platform.Foundation.NSURL
 import platform.UIKit.UIApplication
 
@@ -14,11 +14,5 @@ actual fun downloadFile(url: String, filename: String) {
 }
 
 actual fun openEmail(to: String, subject: String, body: String) {
-    val mailto = buildString {
-        append("mailto:")
-        append(to)
-        append("?subject=").append(encodeUriComponent(subject))
-        append("&body=").append(encodeUriComponent(body))
-    }
-    openUrl(mailto)
+    openUrl(buildMailtoUrl(to, subject, body))
 }

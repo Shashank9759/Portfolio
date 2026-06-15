@@ -2,7 +2,7 @@ package com.shashank.portfolio.presentation.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -84,10 +84,10 @@ private fun ExperienceCard(
                     color = extendedColors.muted,
                 )
             }
-            if (experience.link != null) {
-                IconButton(onClick = { openUrl(experience.link) }) {
+            experience.link?.let { link ->
+                IconButton(onClick = { openUrl(link) }) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.OpenInNew,
+                        imageVector = Icons.Default.Share,
                         contentDescription = "View link",
                         tint = MaterialTheme.colorScheme.primary,
                     )

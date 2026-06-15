@@ -11,7 +11,7 @@ object PortfolioDataSource {
     fun getPortfolioData(): PortfolioData = PortfolioData(
         personalInfo = PersonalInfo(
             name = "Shashank Ranjan",
-            title = "SDE-1 · Android & Cross-Platform Mobile Engineer",
+            title = "Android and Multiplatform Developer",
             summary = "I build production-grade apps for Android Mobile, Android TV (Leanback), and cross-platform stacks — " +
                 "from real-time platforms serving 100K+ users to ML-powered health solutions. Experienced in Kotlin, Compose, iOS (SwiftUI & UIKit), and TV-optimized UIs.",
             location = "Noida, Uttar Pradesh, India",
@@ -25,7 +25,6 @@ object PortfolioDataSource {
         stats = listOf(
             Stat("App Downloads", 100, "K+"),
             Stat("Projects Shipped", 10, "+"),
-            Stat("Years Experience", 2, "+"),
             Stat("Play Store Rating", 4, ".6", showStarIcon = true),
         ),
         aboutSummary = "I'm a Software Development Engineer with deep expertise in native Android development — " +
@@ -90,11 +89,40 @@ object PortfolioDataSource {
                 role = "Android Developer Intern",
                 location = "Maharashtra, India",
                 period = "Nov 2023 – Jan 2024",
-                link = "https://drive.google.com/file/aad/1VnvHppepRtSJMoOdiczbVBMp806QiIuK/view",
                 highlights = listOf(
                     "Redesigned UI and added features for crypto news and status apps, improving user retention",
                     "Optimized code, resolved bugs, and enhanced UI/UX with custom bottom bar and view graphs",
                 ),
+            ),
+        ),
+        clientOrganizations = listOf(
+            ClientOrganization(
+                name = "Lifease Solutions LLP",
+                appName = "CricRadio",
+                description = "Real-time cricket scoring app scaled to 100K+ Play Store downloads with sockets, compression, and Compose UI.",
+                imageKey = "cricradio",
+                link = "https://play.google.com/store/apps/details?id=com.lifease.cricradio",
+            ),
+            ClientOrganization(
+                name = "Bristol University",
+                appName = "Mental Well-being Tracker",
+                description = "Research collaboration — offline-first health app with Federated Learning, Google Fit, and Jetpack Compose.",
+                imageKey = "skinlens",
+                link = "https://drive.google.com/file/d/1TIO-CVvhHMu8bwdtO9xf8-nm46C8p0SZ/view",
+            ),
+            ClientOrganization(
+                name = "RRBMU College",
+                appName = "RRBMU Studies",
+                description = "University learning app with Firebase, push notifications, and content workflows — 1000+ student downloads.",
+                imageKey = "rrbmustudies",
+                link = "https://play.google.com/store/apps/details?id=com.studies.rrbmustudies",
+            ),
+            ClientOrganization(
+                name = "Putatoe Solution Pvt. Ltd",
+                appName = "Putatoe : One Solution",
+                description = "One-stop local business platform — search, compare, and book services with maps, chat, and push notifications. 10K+ Play Store downloads.",
+                imageKey = "putatoe",
+                link = "https://play.google.com/store/apps/details?id=com.putatoeapp.application&hl=en_IN",
             ),
         ),
         projects = listOf(
@@ -134,6 +162,19 @@ object PortfolioDataSource {
                 imageKey = "skinlens",
                 githubUrl = "https://github.com/Shashank9759/SkinLens--Skin-Disease-Detector-App",
                 demoUrl = "https://www.youtube.com/shorts/loplQYV1rkQ",
+            ),
+            Project(
+                name = "DHM3",
+                description = "Bristol University research collaboration — digital health monitoring app with Federated Learning, " +
+                    "Activity Recognition, Google Fit, and offline-first Room sync.",
+                technologies = listOf("Kotlin", "Jetpack Compose", "Room", "Google Fit", "Federated Learning", "Firebase"),
+                imageKey = "dhm3",
+                githubUrl = "https://github.com/Shashank9759/DHM3",
+                highlights = listOf(
+                    "Android Research Collaborator at Bristol University",
+                    "Offline-first health tracking with Room + Firebase sync",
+                    "Activity Recognition and Google Fit integration",
+                ),
             ),
             Project(
                 name = "Yaad Diary",
@@ -225,6 +266,17 @@ object PortfolioDataSource {
                 ),
             ),
             SkillCategory(
+                name = "AI & Machine Learning",
+                icon = "ai",
+                skills = listOf(
+                    Skill("On-device ML (TensorFlow Lite)", 85),
+                    Skill("ML Kit & Vision APIs", 82),
+                    Skill("AI API Integration (Gemini / OpenAI)", 80),
+                    Skill("Federated Learning", 75),
+                    Skill("Prompt Engineering & RAG", 78),
+                ),
+            ),
+            SkillCategory(
                 name = "Tools & Technologies",
                 icon = "tools",
                 skills = listOf(
@@ -236,15 +288,76 @@ object PortfolioDataSource {
             ),
         ),
         freelanceServices = listOf(
-            FreelanceService("Android App Development", "End-to-end native Android mobile apps with Jetpack Compose, MVVM, and Clean Architecture.", "android"),
-            FreelanceService("Android TV Development", "Android TV apps with Leanback library, D-pad navigation, and immersive 10-foot UI experiences.", "tv"),
-            FreelanceService("Kotlin Multiplatform Development", "Shared business logic across Android, iOS, and Desktop with KMP.", "kmp"),
-            FreelanceService("Compose Multiplatform Development", "Unified UI across platforms with Compose Multiplatform for web and mobile.", "cmp"),
-            FreelanceService("Cross-Platform Mobile Development", "React Native, Flutter, SwiftUI, and UIKit solutions for multi-platform reach.", "cross"),
-            FreelanceService("UI/UX Implementation", "Pixel-perfect, animated interfaces with modern design patterns and glassmorphism.", "ui"),
-            FreelanceService("API Integration", "RESTful APIs, WebSockets, Firebase, and third-party SDK integrations.", "api"),
-            FreelanceService("Performance Optimization", "Multithreading, caching, compression strategies, and app profiling.", "perf"),
-            FreelanceService("App Maintenance & Support", "Bug fixes, feature updates, testing, and long-term app maintenance.", "support"),
+            FreelanceService(
+                title = "Android App Development",
+                description = "End-to-end native Android mobile apps with Jetpack Compose, MVVM, and Clean Architecture.",
+                icon = "android",
+                tags = listOf("Jetpack Compose", "MVVM", "Room", "Play Store", "Testing"),
+                deliveryHint = "Typical MVP: 4–8 weeks",
+            ),
+            FreelanceService(
+                title = "Android TV Development",
+                description = "Android TV apps with Leanback library, D-pad navigation, and immersive 10-foot UI experiences.",
+                icon = "tv",
+                tags = listOf("Leanback", "D-pad UX", "Focus Navigation", "TV Compose"),
+                deliveryHint = "TV-ready builds & sideload support",
+            ),
+            FreelanceService(
+                title = "Kotlin Multiplatform Development",
+                description = "Shared business logic across Android, iOS, and Desktop with KMP.",
+                icon = "kmp",
+                tags = listOf("Ktor", "SQLDelight", "expect/actual", "Shared Domain"),
+                deliveryHint = "Shared modules + platform shells",
+            ),
+            FreelanceService(
+                title = "Compose Multiplatform Development",
+                description = "Unified UI across platforms with Compose Multiplatform for web and mobile.",
+                icon = "cmp",
+                tags = listOf("Wasm Web", "Android", "iOS", "Desktop", "Material 3"),
+                deliveryHint = "One codebase, all screens",
+            ),
+            FreelanceService(
+                title = "Cross-Platform Mobile Development",
+                description = "React Native, Flutter, SwiftUI, and UIKit solutions for multi-platform reach.",
+                icon = "cross",
+                tags = listOf("React Native", "Flutter", "SwiftUI", "UIKit"),
+                deliveryHint = "Platform-native feel",
+            ),
+            FreelanceService(
+                title = "UI/UX Implementation",
+                description = "Pixel-perfect, animated interfaces with modern design patterns and responsive layouts.",
+                icon = "ui",
+                tags = listOf("Figma to Code", "Animations", "Design Systems", "Accessibility"),
+                deliveryHint = "Design handoff → production UI",
+            ),
+            FreelanceService(
+                title = "API Integration",
+                description = "RESTful APIs, WebSockets, Firebase, and third-party SDK integrations.",
+                icon = "api",
+                tags = listOf("Retrofit", "Ktor", "Socket.IO", "Firebase", "Supabase"),
+                deliveryHint = "Real-time & offline-first",
+            ),
+            FreelanceService(
+                title = "Performance Optimization",
+                description = "Multithreading, caching, compression strategies, and app profiling.",
+                icon = "perf",
+                tags = listOf("Profiling", "Caching", "Compression", "Startup Time"),
+                deliveryHint = "Measurable speed gains",
+            ),
+            FreelanceService(
+                title = "AI Integration & On-Device ML",
+                description = "Trending AI features — Gemini/OpenAI APIs, ML Kit, TensorFlow Lite, chatbots, and smart automation in mobile apps.",
+                icon = "ai",
+                tags = listOf("Gemini API", "OpenAI", "ML Kit", "TFLite", "RAG", "On-device AI"),
+                deliveryHint = "From AI chat to on-device inference",
+            ),
+            FreelanceService(
+                title = "App Maintenance & Support",
+                description = "Bug fixes, feature updates, testing, and long-term app maintenance.",
+                icon = "support",
+                tags = listOf("Bug Fixes", "SDK Updates", "CI/CD", "Monitoring"),
+                deliveryHint = "Monthly retainer available",
+            ),
         ),
         testimonials = listOf(
             Testimonial(
@@ -279,6 +392,7 @@ object PortfolioDataSource {
             SocialLink("Resume", "https://drive.google.com/file/d/1GKQkZOtrKGyvd9rDtuEnEmYtJ6i5klmS/view?usp=sharing", "resume"),
             SocialLink("LinkedIn", "https://www.linkedin.com/in/shashank142004/", "linkedin"),
             SocialLink("GitHub", "https://github.com/Shashank9759/", "github"),
+            SocialLink("Topmate", "https://topmate.io/shashank_ranjan10", "topmate"),
             SocialLink("Email", "mailto:shashankranjantech@gmail.com", "email"),
         ),
     )

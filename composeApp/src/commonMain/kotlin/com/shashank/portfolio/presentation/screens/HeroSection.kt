@@ -166,14 +166,14 @@ private fun HeroCTAButtons(
 ) {
     if (centered) {
         Column(verticalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.fillMaxWidth()) {
-            GradientButton("Hire Me", { onNavigate(PortfolioSection.Contact) }, Modifier.fillMaxWidth(), Icons.Default.Work)
-            OutlineButton("View Resume", { downloadFile(personalInfo.resumeUrl, "Resume.pdf") }, Modifier.fillMaxWidth(), Icons.Default.Description)
+            GradientButton("Hire Me", { onNavigate(PortfolioSection.Contact) }, Modifier.fillMaxWidth(), Icons.Default.Person)
+            OutlineButton("View Resume", { downloadFile(personalInfo.resumeUrl, "Resume.pdf") }, Modifier.fillMaxWidth(), Icons.Default.Info)
             OutlineButton("Contact", { onNavigate(PortfolioSection.Contact) }, Modifier.fillMaxWidth(), Icons.Default.Email)
         }
     } else {
         Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md)) {
-            GradientButton("Hire Me", { onNavigate(PortfolioSection.Contact) }, icon = Icons.Default.Work)
-            OutlineButton("View Resume", { downloadFile(personalInfo.resumeUrl, "Resume.pdf") }, icon = Icons.Default.Description)
+            GradientButton("Hire Me", { onNavigate(PortfolioSection.Contact) }, icon = Icons.Default.Person)
+            OutlineButton("View Resume", { downloadFile(personalInfo.resumeUrl, "Resume.pdf") }, icon = Icons.Default.Info)
             OutlineButton("Contact", { onNavigate(PortfolioSection.Contact) }, icon = Icons.Default.Email)
         }
     }

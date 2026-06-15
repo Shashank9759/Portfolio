@@ -1,6 +1,7 @@
 package com.shashank.portfolio
 
-import com.shashank.portfolio.util.encodeUriComponent
+import com.shashank.portfolio.util.buildGmailComposeUrl
+import com.shashank.portfolio.util.buildMailtoUrl
 import java.awt.Desktop
 import java.net.URI
 
@@ -8,7 +9,7 @@ actual fun openUrl(url: String) {
     if (!Desktop.isDesktopSupported()) return
     val desktop = Desktop.getDesktop()
     if (!desktop.isSupported(Desktop.Action.BROWSE)) return
-    desktop.browse(URI(url))
+    runCatching { desktop.browse(URI(url)) }
 }
 
 actual fun downloadFile(url: String, filename: String) {
@@ -16,17 +17,23 @@ actual fun downloadFile(url: String, filename: String) {
 }
 
 actual fun openEmail(to: String, subject: String, body: String) {
-    if (!Desktop.isDesktopSupported()) return
-    val desktop = Desktop.getDesktop()
-    val mailto = buildString {
-        append("mailto:")
-        append(to)
-        append("?subject=").append(encodeUriComponent(subject))
-        append("&body=").append(encodeUriComponent(body))
+    // Desktop.mail() and mailto: often fail silently on Windows/macOS without a default mail client.
+    // Gmail web compose is the most reliable path for the contact form.
+    val gmailUrl = buildGmailComposeUrl(to, subject, body)
+    if (Desktop.isDesktopSupported()) {
+        val desktop = Desktop.getDesktop()
+        if (desktop.isSupported(Desktop.Action.BROWSE)) {
+            runCatching {
+                desktop.browse(URI(gmailUrl))
+                return
+            }
+        }
+        if (desktop.isSupported(Desktop.Action.MAIL)) {
+            runCatching {
+                desktop.mail(URI(buildMailtoUrl(to, subject, body)))
+                return
+            }
+        }
     }
-    if (desktop.isSupported(Desktop.Action.MAIL)) {
-        desktop.mail(URI(mailto))
-    } else {
-        openUrl(mailto)
-    }
+    openUrl(gmailUrl)
 }
