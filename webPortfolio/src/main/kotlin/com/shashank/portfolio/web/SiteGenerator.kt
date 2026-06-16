@@ -48,6 +48,7 @@ object SiteGenerator {
         webResources.forEach { name ->
             distDir.resolve(name).writeText(readResource("web/$name"))
         }
+        distDir.resolve("CNAME").writeText("shashankranjan.in\n")
 
         val html = createHTML(prettyPrint = true).html {
             lang = "en"
