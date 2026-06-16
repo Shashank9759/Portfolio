@@ -257,12 +257,31 @@
       }
     });
 
+    var MUSIC_BOTTOM_RESERVE = 112;
+
     function zoneSize() {
       var rect = dancerZone ? dancerZone.getBoundingClientRect() : null;
       return {
-        w: rect && rect.width > 0 ? rect.width : Math.min(window.innerWidth * 0.26, 280),
+        w: rect && rect.width > 0 ? rect.width : Math.min(window.innerWidth * 0.38, 360),
         h: rect && rect.height > 0 ? rect.height : window.innerHeight - 88,
       };
+    }
+
+    function updateDancerBounds() {
+      if (!dancerZone) return;
+      var clipBottom = MUSIC_BOTTOM_RESERVE;
+      var footer = document.querySelector(".site-footer");
+
+      if (footer) {
+        var top = footer.getBoundingClientRect().top;
+        if (top < window.innerHeight - MUSIC_BOTTOM_RESERVE) {
+          clipBottom = Math.max(MUSIC_BOTTOM_RESERVE, window.innerHeight - top + 16);
+        }
+      }
+
+      dancerZone.style.bottom = clipBottom + "px";
+      var height = dancerZone.getBoundingClientRect().height;
+      dancerZone.classList.toggle("is-hidden", height < 140);
     }
 
     function resizeDancer() {
@@ -503,8 +522,14 @@
       requestAnimationFrame(dancerLoop);
     }
 
-    window.addEventListener("resize", resizeDancer, { passive: true });
-    resizeDancer();
+    function onViewportChange() {
+      updateDancerBounds();
+      resizeDancer();
+    }
+
+    window.addEventListener("resize", onViewportChange, { passive: true });
+    window.addEventListener("scroll", onViewportChange, { passive: true });
+    onViewportChange();
     requestAnimationFrame(dancerLoop);
     setVolumeIcon(parseInt(volInput.value, 10) || 45);
     setIcon(false);

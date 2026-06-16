@@ -25,13 +25,19 @@ a:hover { color: color-mix(in srgb, var(--primary) 80%, white); }
 
 .dancer-zone {
   position: fixed;
-  left: 0.5rem;
+  left: 0;
   top: 4.5rem;
   bottom: 7rem;
   width: min(38vw, 360px);
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
+  transition: opacity 280ms ease, bottom 120ms ease;
+}
+
+.dancer-zone.is-hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .dancer-canvas {
@@ -174,7 +180,6 @@ a:hover { color: color-mix(in srgb, var(--primary) 80%, white); }
 
 @media (max-width: 599px) {
   .dancer-zone {
-    left: 0.25rem;
     top: 4rem;
     width: min(40vw, 150px);
     bottom: 6.5rem;
