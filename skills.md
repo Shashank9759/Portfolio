@@ -1,311 +1,42 @@
-# Portfolio — AI Project Guide
+# Portfolio — AI Project Guide (Web Branch)
 
-> **Purpose:** This file helps AI assistants (Cursor, Claude, Copilot, etc.) understand this repository quickly and make correct changes without breaking multiplatform builds.
->
-> **Owner:** Shashank Ranjan — Android and Multiplatform Developer  
-> **Location:** Noida, Uttar Pradesh, India  
-> **Contact:** shashankranjantech@gmail.com
+> **Branch:** `webTargetPorfolio` — **web-only**. No Compose Multiplatform Wasm/Android/iOS on this branch.
 
----
+## What This Is
 
-## What This Project Is
+HTML/CSS portfolio generated with **Kotlin `kotlinx-html`** from `shared/PortfolioDataSource.kt`.
 
-A **Compose Multiplatform (CMP)** personal portfolio app for **Shashank Ranjan**. One shared Kotlin UI (`commonMain`) runs on:
+| Module | Purpose |
+|--------|---------|
+| `shared` | JVM-only data + models |
+| `webPortfolio` | HTML generator + CSS/JS assets |
 
-| Platform | Source set | Entry point | Run command |
-|----------|------------|-------------|-------------|
-| **Web** | `wasmJsMain` | `main.kt` → `ComposeViewport("ComposeTarget")` | `./gradlew :composeApp:wasmJsBrowserDevelopmentRun` |
-| **Android** | `androidMain` | `MainActivity.kt` | `./gradlew :composeApp:installDebug` |
-| **iOS** | `iosMain` | `MainViewController.kt` | Open `iosApp/iosApp.xcodeproj` in Xcode |
-| **macOS (native)** | `macosMain` | `main.kt` → `NSApplication` + `Window` | `./gradlew :composeApp:runDebugExecutableMacosArm64` |
-| **Desktop (JVM)** | `desktopMain` | `Main.kt` → `application { Window }` | `./gradlew :composeApp:run` |
-
-**Windows / Linux** use the **desktop (JVM)** target — not macOS native.  
-**Web** is deployed as static Wasm output to GitHub Pages, Netlify, Vercel, etc.
-
-**Gradle modules:** `:composeApp` (UI), `:shared` (models + static data), `:server` (optional Ktor API).
-
----
-
-## Tech Stack (Pinned Versions)
-
-| Item | Version |
-|------|---------|
-| Kotlin | 2.1.21 |
-| Compose Multiplatform | 1.8.2 |
-| Android Gradle Plugin | 8.5.2 |
-| compileSdk / targetSdk | 35 |
-| minSdk | 24 |
-| JDK | **17 required** (21+ can break Gradle/Kotlin) |
-| Gradle JVM heap | 8GB (`gradle.properties` — needed for Wasm compile) |
-
-Gradle properties: `org.jetbrains.compose.experimental.macos.enabled=true` (native macOS).
-
----
-
-## Architecture
-
-```
-shared/
-  domain/model/PortfolioModels.kt     → data classes (Experience, Project, ClientOrganization, …)
-  data/source/PortfolioDataSource.kt  → static portfolio content (single source of truth)
-
-composeApp/
-  data/repository/PortfolioRepository.kt  → local data + optional API refresh
-  data/remote/PortfolioApiClient.*.kt     → expect/actual HTTP per platform
-  presentation/                           → UI, theme, navigation, animations, viewmodel
-  Platform.kt                             → expect openUrl, downloadFile, openEmail
-  PlatformUi.kt                           → expect isTouchPlatform()
-
-server/
-  Application.kt                          → Ktor API on port 8090 (optional)
-```
-
-**Pattern:** Clean Architecture — Domain (`shared`) → Data → Presentation (`composeApp`).  
-**State:** `PortfolioViewModel` loads bundled data from `PortfolioRepository` → `PortfolioDataSource`. On startup (after 2.5s delay), it calls `refreshFromApi()` once; failures are silent.  
-**Root composable:** `presentation/App.kt` — wraps content in `ProvideResponsiveLayout` + `PortfolioTheme`.
-
-### API flow (optional)
-
-```
-App.kt LaunchedEffect → PortfolioViewModel.refreshFromApi()
-  → PortfolioRepository.fetchRemotePortfolio()
-  → PortfolioApiClient.fetchPortfolio()
-  → fetchPortfolioRemote() [platform actual]
-  → GET http://localhost:8090/api/portfolio
-```
-
-| Platform | API client file | Base URL |
-|----------|-----------------|----------|
-| Wasm | `PortfolioApiClient.wasmJs.kt` | `http://localhost:8090` via `fetch()` |
-| Desktop | `PortfolioApiClient.desktop.kt` | Ktor client |
-| Android | `PortfolioApiClient.android.kt` | `http://10.0.2.2:8090` (emulator) |
-| iOS / macOS | `PortfolioApiClient.ios.kt` / `.macos.kt` | `http://localhost:8090` |
-
-**Server:** `./gradlew :server:run` — serves same `PortfolioDataSource` data. Web webpack uses **8080**, API uses **8090**. App does **not** require the server; bundled data is always available.
-
-### UI Sections (in scroll order)
-
-1. Hero — `HeroSection.kt` (stats: downloads, projects shipped, Play Store rating — no “years experience”)
-2. About — `AboutSection.kt`
-3. Skills — `SkillsSection.kt`
-4. Experience — `ExperienceSection.kt` (link icon only when `Experience.link` is set; Flexo Technology has no link)
-5. **Organizations** — `OrganizationsSection.kt` (“Helping Organisations Build Apps”, nav label **Clients**)
-6. Projects — `ProjectsSection.kt`
-7. Services — `ServicesSection.kt` (shows “Live data” badge when API refresh succeeds)
-8. Testimonials — `TestimonialsSection.kt`
-9. Contact — `ContactSection.kt`
-10. Footer — `FooterSection.kt`
-
-**Navigation:** `Navigation.kt` (`PortfolioSection` enum), `NavigationBar.kt` (sticky), `SectionScrollRegistry.kt`, `FloatingContactFab.kt`, `RecruiterQuickBar.kt`.
-
----
-
-## Directory Map
-
-```
-Portfolio/
-├── shared/
-│   └── src/commonMain/kotlin/com/shashank/portfolio/
-│       ├── domain/model/PortfolioModels.kt          ← Data models
-│       └── data/source/PortfolioDataSource.kt     ← EDIT CONTENT HERE
-├── composeApp/
-│   ├── build.gradle.kts
-│   └── src/
-│       ├── commonMain/
-│       │   ├── kotlin/com/shashank/portfolio/
-│       │   │   ├── data/repository/PortfolioRepository.kt
-│       │   │   ├── data/remote/PortfolioApiClient.kt
-│       │   │   ├── presentation/
-│       │   │   │   ├── App.kt                       ← Root UI
-│       │   │   │   ├── screens/                     ← Section composables
-│       │   │   │   ├── components/                    ← Nav, ProjectImage, BrandLogoImage, canvas
-│       │   │   │   ├── theme/
-│       │   │   │   ├── animation/
-│       │   │   │   ├── navigation/
-│       │   │   │   └── viewmodel/PortfolioViewModel.kt
-│       │   │   ├── Platform.kt
-│       │   │   └── PlatformUi.kt
-│       │   └── composeResources/drawable/           ← Bundled PNG assets
-│       ├── androidMain/
-│       ├── wasmJsMain/                              ← main.kt, index.html, fetch API client
-│       ├── iosMain/
-│       ├── macosMain/
-│       └── desktopMain/
-├── server/                                          ← Optional Ktor API (:8090)
-├── iosApp/
-├── gradle/libs.versions.toml
-├── gradle.properties
-├── skills.md                                        ← This file
-└── README.md
-```
-
-### Bundled drawable assets (`composeResources/drawable/`)
-
-| Prefix | Examples | Used by |
-|--------|----------|---------|
-| `project_*` | `project_cricradio`, `project_skinlens`, `project_rrbmustudies`, … | `ProjectImage.kt` |
-| `org_*` | `org_putatoe` | Client org posters (`OrganizationsSection`) |
-| `brand_*` | `brand_linkedin`, `brand_github`, `brand_topmate`, `brand_gmail`, `brand_resume` | `BrandLogoImage.kt`, social cards |
-| `hero_*` | `hero_android`, `hero_kotlin`, `hero_ai` | `HeroTechLogo.kt` |
-
-Register new `imageKey` values in `ProjectImage.kt` (`projectDrawableFor`).
-
----
-
-## Common AI Tasks — Where to Edit
-
-| Task | File(s) |
-|------|---------|
-| Change name, email, links, resume URL | `shared/.../PortfolioDataSource.kt` |
-| Add/edit job, project, skill, testimonial | `shared/.../PortfolioDataSource.kt` + `PortfolioModels.kt` if new fields |
-| Add/edit client organisation card | `PortfolioDataSource.kt` (`clientOrganizations`) + drawable + `ProjectImage.kt` |
-| Change hero stats | `PortfolioDataSource.kt` → `stats` list |
-| Change colors / theme modes | `theme/Color.kt`, `theme/PortfolioThemeMode.kt`, `theme/Theme.kt` |
-| Typography / spacing | `theme/Typography.kt`, `theme/Dimensions.kt`, `theme/Responsive.kt` |
-| Nav links / section IDs | `navigation/Navigation.kt`, `NavigationBar.kt` |
-| Web HTML shell / loader | `wasmJsMain/resources/index.html` |
-| Web entry (blank screen bugs) | `wasmJsMain/kotlin/.../main.kt` — must use `ComposeViewport("ComposeTarget")` |
-| Wasm API client | `PortfolioApiClient.wasmJs.kt` — use `arrayBuffer()`, not `response.text()` |
-| Android edge-to-edge / insets | `MainActivity.kt`, `NavigationBar.kt` (`statusBarsPadding`) |
-| Open URL / email per platform | `Platform.*.kt` in each `*Main` source set |
-| Touch vs desktop behavior | `PlatformUi.*.kt` — `isTouchPlatform()` drives `Responsive.kt` |
-| iOS Xcode signing | `iosApp/Configuration/Config.xcconfig` |
-| Optional API server | `server/.../Application.kt` |
-
----
-
-## Coding Conventions (Follow These)
-
-1. **Shared UI in `commonMain` only** — platform code stays in `*Main` source sets via `expect`/`actual`.
-2. **Content in `shared` module** — `PortfolioDataSource.kt` is the single source for app + server.
-3. **Minimize scope** — match existing naming, imports, and Material 3 patterns.
-4. **Responsive system** — use `LocalResponsiveConfig` / `ProvideResponsiveLayout`; mobile disables physics/hover.
-5. **Wasm-safe UI** — no emoji in theme picker labels (use text + colored dots); broken glyphs on web.
-6. **Wasm API** — no Ktor client on Wasm compile path; use browser `fetch()`.
-7. **Web container** — `index.html` must have `<div id="ComposeTarget">`, not a raw `<canvas>`.
-8. **Do not use Android NDK APIs on Wasm** — canvas/physics uses Skia via `InteractiveDevBackground.kt`.
-9. **14 theme modes** — `PortfolioThemeMode` enum; picker is overlay `DropdownMenu` in `ThemeModePicker.kt`.
-10. **Contact email** — Wasm opens Gmail compose URL; Android uses `Intent`; desktop/iOS/macOS use `mailto:` or system handlers.
-11. **Organisation posters** — use `ContentScale.Fit` in `OrganizationsSection`; project cards use `Crop`.
-
----
-
-## Platform-Specific Gotchas
-
-### Web (Wasm)
-- Entry: `ComposeViewport(viewportContainerId = "ComposeTarget")`
-- `openEmail` uses Gmail web compose (reliable in browser)
-- API via `window.fetch()` + `arrayBuffer()` JSON parse
-- Requires browsers with Wasm GC (Chrome 119+, Firefox 120+, Safari 18+)
-- Large heap in `gradle.properties` (8GB) for Wasm compilation
-
-### Android
-- `enableEdgeToEdge()` in `MainActivity`
-- `AndroidContextProvider` required for `Platform.android.kt`
-- `isTouchPlatform() = true` → minimal background intensity, no hover animations
-- API base URL: `10.0.2.2:8090` for emulator
-
-### iOS
-- `MainViewController()` exported to Swift as `MainViewControllerKt.MainViewController()`
-- Framework name: `ComposeApp` (static)
-- Build via Xcode; Gradle task `embedAndSignAppleFrameworkForXcode` needs Xcode env vars
-- Set `TEAM_ID` in `iosApp/Configuration/Config.xcconfig`
-
-### macOS (native)
-- Uses `NSApplication.sharedApplication()` + `Window(title, size) { App() }` + `NSApp?.run()`
-- **Not** the JVM `application { }` API — different Window signature
-- Experimental: `org.jetbrains.compose.experimental.macos.enabled=true`
-
-### Desktop (JVM — Windows, Linux, macOS)
-- `compose.desktop` with `mainClass = com.shashank.portfolio.MainKt`
-- Package: `packageMsi` (Windows), `packageDmg` (macOS), `packageDeb` (Linux)
-- Build Windows `.msi` **on Windows** (or Windows CI)
-
----
-
-## Build Commands (macOS/Linux shell)
+## Run
 
 ```bash
-export JAVA_HOME=$(/usr/libexec/java_home -v 17)   # macOS; use JDK 17 path on Win/Linux
-
-# Web
-./gradlew :composeApp:wasmJsBrowserDevelopmentRun      # http://localhost:8080
-./gradlew :composeApp:wasmJsBrowserProductionWebpack
-
-# Optional API
-./gradlew :server:run                                   # http://localhost:8090
-
-# Android
-./gradlew :composeApp:installDebug
-
-# Desktop (JVM — all desktop OS)
-./gradlew :composeApp:run
-./gradlew :composeApp:packageDmg    # macOS installer
-./gradlew :composeApp:packageMsi    # Windows installer (run on Windows)
-./gradlew :composeApp:packageDeb    # Linux
-
-# macOS native
-./gradlew :composeApp:runDebugExecutableMacosArm64   # Apple Silicon
-./gradlew :composeApp:runDebugExecutableMacosX64       # Intel Mac
-
-# Compile checks (CI-friendly)
-./gradlew :composeApp:compileKotlinWasmJs
-./gradlew :composeApp:compileDebugKotlinAndroid
-./gradlew :composeApp:compileKotlinDesktop
-./gradlew :composeApp:compileKotlinIosSimulatorArm64
-./gradlew :composeApp:compileKotlinMacosArm64
-./gradlew :shared:compileKotlinJvm
+./gradlew :webPortfolio:generateWebDist
+./gradlew :webPortfolio:run    # http://localhost:3000
 ```
 
----
+## Web assets
 
-## Key Features (Do Not Break Accidentally)
+| File | Purpose |
+|------|---------|
+| `SiteGenerator.kt` | Builds `index.html` |
+| `themes.css` | 17 theme modes (matches `PortfolioThemeMode`) |
+| `animations.css` | Scroll reveal, FAB pulse, skill shimmer |
+| `styles.css` | Layout, glass cards, grids |
+| `background.js` | Canvas particles + aurora (desktop) |
+| `app.js` | Theme picker, nav, counters, services auto-cycle |
 
-- **14 theme modes** with dropdown overlay (no layout jump)
-- **Physics/canvas background** (`InteractiveDevBackground`, `PhysicsDeviceEngine`) — desktop only
-- **Sticky nav** with `statusBarsPadding` on mobile
-- **Scroll-based section navigation** via `SectionScrollRegistry`
-- **Recruiter quick bar** + floating “Let’s Talk” FAB
-- **Responsive breakpoints** in `Responsive.kt` (mobile &lt;600dp, tablet, desktop)
-- **Bundled brand/project/org images** — critical logos should stay in `composeResources`, not remote CDN
-- **Deferred API refresh** — 2.5s after launch in `App.kt`; silent fallback to bundled data
-- **Organizations section** — `ClientOrganization` model + `OrganizationsSection.kt`
+## Edit content
 
----
+`shared/src/commonMain/.../PortfolioDataSource.kt`
 
-## About Shashank (Context for Content Edits)
+## Edit visuals
 
-**Role:** Android and Multiplatform Developer at Lifease Solutions LLP  
-**Focus:** Android Mobile, Android TV (Leanback), Kotlin, Jetpack Compose, KMP/CMP, iOS (SwiftUI/UIKit), cross-platform (RN, Flutter), AI/ML integration
-
-**Notable work:**
-- CricRadio — 100K+ downloads, real-time cricket (Kotlin, Compose, Ktor, Socket.IO)
-- RRBMU Studies — university app, 4.6★ rating
-- SkinLens — ML/TFLite skin disease detection
-- Putatoe — one-stop local business platform ([Play Store](https://play.google.com/store/apps/details?id=com.putatoeapp.application))
-- Bristol University — Federated Learning research collaboration
-- 95% data compression optimization at Lifease Solutions
-
-**Client organisations section includes:** Lifease Solutions, Bristol University, RRBMU College, Putatoe Solution Pvt. Ltd.
-
-**Core skills:** Kotlin, Java, Jetpack Compose, CMP, MVVM/MVI/Clean Architecture, Room, Ktor, Firebase, TFLite, AI APIs (Gemini/OpenAI), testing (JUnit, Espresso, MockK)
-
-When editing portfolio copy, keep tone **professional, concise, recruiter-friendly**. Data lives in `shared/.../PortfolioDataSource.kt` — keep it consistent with resume facts.
-
----
-
-## AI Assistant Checklist Before Submitting Changes
-
-- [ ] UI changes in `composeApp/commonMain` unless platform-specific
-- [ ] Content/model changes in `shared` module when possible
-- [ ] New platform API → add `expect` in common + `actual` in every target source set
-- [ ] New image asset → add PNG to `composeResources/drawable/` + register in `ProjectImage.kt` or `BrandLogoImage.kt`
-- [ ] Wasm: no emoji labels; no Ktor client; test `ComposeTarget` container if touching web entry
-- [ ] Touch platforms: verify responsive config still disables heavy animations on mobile
-- [ ] Run relevant compile task for touched targets
-- [ ] JDK 17 — do not upgrade Kotlin/Compose versions without user request
-
----
+- CSS: `webPortfolio/src/main/resources/web/*.css`
+- HTML structure: `SiteGenerator.kt`
+- Interactions: `app.js`, `background.js`
 
 *Last updated: June 2026*

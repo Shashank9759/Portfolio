@@ -16,17 +16,10 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        google {
-            mavenContent {
-                includeGroupAndSubgroups("androidx")
-                includeGroupAndSubgroups("com.android")
-                includeGroupAndSubgroups("com.google")
-            }
-        }
         mavenCentral()
     }
 }
 
-include(":composeApp")
+// Web-only branch: HTML/CSS portfolio + shared data
 include(":shared")
-include(":server")
+include(":webPortfolio")
