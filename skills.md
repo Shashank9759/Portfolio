@@ -1,32 +1,42 @@
 # Portfolio — AI Project Guide (Web Branch)
 
-> **Branch:** `webTargetPorfolio` — **web-only**. No Compose Multiplatform Wasm/Android/iOS on this branch.
+> **Branch:** `webTargetPorfolio` — **web-only**. Kobweb + Compose HTML. No Android/iOS/Wasm targets.
 
 ## What This Is
 
-HTML/CSS portfolio generated with **Kotlin `kotlinx-html`** from `shared/PortfolioDataSource.kt`.
+Portfolio site built with **Kobweb** and **Compose HTML**, data from `shared/PortfolioDataSource.kt`. Same CSS/JS assets as before (themes, animations, canvas, music player).
 
 | Module | Purpose |
 |--------|---------|
-| `shared` | JVM-only data + models |
-| `webPortfolio` | HTML generator + CSS/JS assets |
+| `shared` | Kotlin/JS data + models |
+| `site` | Kobweb app (`@Page` composables + public assets) |
 
 ## Run
 
 ```bash
-./gradlew :webPortfolio:generateWebDist
-./gradlew :webPortfolio:run    # http://localhost:3000
+./gradlew :site:kobwebStart    # http://localhost:3000
+./gradlew :site:kobwebStop
 ```
+
+## Export (GitHub Pages)
+
+```bash
+./gradlew :site:kobwebExport -PkobwebExportLayout=STATIC
+```
+
+Output: `site/.kobweb/site/`
 
 ## Web assets
 
 | File | Purpose |
 |------|---------|
-| `SiteGenerator.kt` | Builds `index.html` |
-| `themes.css` | 17 theme modes (matches `PortfolioThemeMode`) |
+| `site/src/site/components/sections/PortfolioSections.kt` | Page sections |
+| `site/src/site/components/PortfolioShell.kt` | Canvas, dancer, music widget |
+| `themes.css` | 17 theme modes |
 | `animations.css` | Scroll reveal, FAB pulse, skill shimmer |
 | `styles.css` | Layout, glass cards, grids |
-| `background.js` | Canvas particles + aurora (desktop) |
+| `background.js` | Solar system + canvas particles |
+| `music-player.js` | Sahiba player + bhangra dancer |
 | `app.js` | Theme picker, nav, counters, services auto-cycle |
 
 ## Edit content
@@ -35,8 +45,5 @@ HTML/CSS portfolio generated with **Kotlin `kotlinx-html`** from `shared/Portfol
 
 ## Edit visuals
 
-- CSS: `webPortfolio/src/main/resources/web/*.css`
-- HTML structure: `SiteGenerator.kt`
-- Interactions: `app.js`, `background.js`
-
-*Last updated: June 2026*
+- CSS/JS: `site/src/jsMain/resources/public/`
+- HTML structure: `site/src/site/components/`

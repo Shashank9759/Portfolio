@@ -1,0 +1,9 @@
+2026-06-17 15:08:33.016 [main] DEBUG io.ktor.server.Application - Java Home: /opt/homebrew/Cellar/openjdk@17/17.0.15/libexec/openjdk.jdk/Contents
+2026-06-17 15:08:33.018 [main] DEBUG io.ktor.server.Application - Class Loader: jdk.internal.loader.ClassLoaders$AppClassLoader@42110406: [file:/Users/shashankranjan/cursorProjects/Portfolio/site/.kobweb/server/server.jar!/okio/]
+2026-06-17 15:08:33.034 [main] INFO  io.ktor.server.Application - Initializing server engine for Kobweb project "Shashank Ranjan | Mobile Dev"
+2026-06-17 15:08:33.036 [main] INFO  io.ktor.server.Application - No API jar file specified in conf.yaml. Server API routes will not be available.
+2026-06-17 15:08:33.112 [main] INFO  io.ktor.server.Application - CORS: No hosts registered.
+2026-06-17 15:08:33.120 [main] INFO  io.ktor.server.Application - Application started in 0.233 seconds.
+2026-06-17 15:08:33.205 [main] INFO  io.ktor.server.Application - Responding at http://0.0.0.0:3000
+2026-06-17 15:08:55.662 [DefaultDispatcher-worker-3] DEBUG io.ktor.server.Application - Served fallback index.html file in response to "/"
+2026-06-17 15:08:56.612 [DefaultDispatcher-worker-15] DEBUG io.ktor.server.Application - Client connected and is requesting kobweb status events.

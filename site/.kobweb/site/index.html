@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="en" data-theme="midnight" class="js-ready">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Shashank Ranjan | Mobile Dev</title>
+  <meta content="Android and Multiplatform Developer portfolio — Kotlin, Jetpack Compose, KMP." name="description">
+  <link href="/favicon.ico" rel="icon">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <script type="text/javascript" id="www-widgetapi-script" src="https://www.youtube.com/s/player/ae0b654c/www-widgetapi.vflset/www-widgetapi.js" async></script>
+  <script>try{
+  var t=localStorage.getItem('portfolio-theme')||'midnight';
+  document.documentElement.setAttribute('data-theme',t);
+}catch(e){}</script>
+  <link href="/styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet">
+  <link href="/favicon.svg" rel="icon" type="image/svg+xml">
+  <script defer src="/background.js"></script>
+  <script defer src="/music-player.js"></script>
+  <script defer src="/app.js"></script>
+  <script src="https://www.youtube.com/iframe_api" async></script>
+ </head>
+ <body>
+  <div id="_kobweb-root" style="width: 100%; height: 100%;">
+   <canvas class="dev-bg-canvas" id="dev-bg" width="1280" height="720"></canvas>
+   <div class="dancer-zone" style="bottom: 112px;">
+    <canvas class="dancer-canvas" id="dancer-canvas" width="360" height="536" style="width: 360px; height: 536px;"></canvas>
+   </div>
+   <div class="content-backdrop"></div>
+   <div class="music-widget glass" id="music-widget">
+    <button class="music-play-btn" id="music-play" type="button" aria-label="Play Sahiba by Aditya Rikhari"><span class="material-symbols-outlined">play_arrow</span></button>
+    <div class="music-meta">
+     <span class="music-title">Sahiba</span><span class="music-artist">Aditya Rikhari</span><span class="music-status" id="music-status">Tap anywhere for Sahiba</span>
+    </div>
+    <div class="music-volume-wrap">
+     <span class="material-symbols-outlined music-vol-icon">volume_off</span><input class="music-volume" type="range" id="music-volume" min="0" max="100" value="35" aria-label="Music volume">
+    </div>
+   </div><iframe class="youtube-hidden" id="youtube-mount" aria-hidden="true" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Sahiba (Official Music Video) : Aditya Rikhari, Ankita Chhetri | T-Series" width="200" height="200" src="https://www.youtube.com/embed/n2dVFdqMYGA?autoplay=0&amp;mute=1&amp;start=12&amp;controls=0&amp;disablekb=1&amp;fs=0&amp;modestbranding=1&amp;rel=0&amp;playsinline=1&amp;enablejsapi=1&amp;origin=http%3A%2F%2Flocalhost%3A3000&amp;widgetid=1&amp;forigin=http%3A%2F%2Flocalhost%3A3000%2F%3F_kobwebIsExporting%3Dtrue%26_kobwebColorModeStrategy%3DBOTH&amp;aoriginsup=1&amp;vf=6"></iframe>
+   <div class="page-content">
+    <header class="site-header">
+     <div class="container nav-inner">
+      <a class="nav-logo" href="#home">SR</a>
+      <nav class="desktop-nav">
+       <a class="nav-link" href="#about">About</a><a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#experience">Experience</a><a class="nav-link" href="#organizations">Clients</a><a class="nav-link" href="#projects">Projects</a><a class="nav-link" href="#services">Services</a><a class="nav-link" href="#testimonials">Testimonials</a><a class="nav-link" href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+       <div class="theme-picker">
+        <button class="theme-chip" type="button" id="theme-chip"><span class="theme-dot"></span><span id="theme-label">Midnight</span></button>
+        <div class="theme-menu" id="theme-menu">
+         <button type="button" class="theme-option active"><span class="theme-dot" style="background:#3b82f6"></span>Midnight</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#2563eb"></span>Light</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#3ddc84"></span>Android</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#06b6d4"></span>Ocean</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#f97316"></span>Sunset</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#00ff88"></span>Cyber</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#bb86fc"></span>AMOLED</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#22c55e"></span>Forest</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#f43f5e"></span>Rose</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#a78bfa"></span>Lavender</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#eab308"></span>Gold</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#dc2626"></span>Crimson</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#2dd4bf"></span>Mint</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#94a3b8"></span>Slate</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#ff2d95"></span>Neon</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#38bdf8"></span>Arctic</button><button type="button" class="theme-option"><span class="theme-dot" style="background:#fb7185"></span>Ember</button>
+        </div>
+       </div><a class="btn btn-gradient btn-sm" href="#contact">Hire Me</a><button class="menu-toggle" type="button" aria-label="Open menu"><span class="menu-bar"></span><span class="menu-bar"></span><span class="menu-bar"></span></button>
+      </div>
+     </div>
+     <nav class="mobile-nav">
+      <a class="nav-link" href="#home">Home</a><a class="nav-link" href="#about">About</a><a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#experience">Experience</a><a class="nav-link" href="#organizations">Clients</a><a class="nav-link" href="#projects">Projects</a><a class="nav-link" href="#services">Services</a><a class="nav-link" href="#testimonials">Testimonials</a><a class="nav-link" href="#contact">Contact</a>
+     </nav>
+    </header>
+    <main class="site-main">
+     <section class="section hero-section reveal visible" id="home">
+      <div class="container hero-wrap">
+       <div class="recruiter-bar glass reveal visible">
+        <span class="recruiter-item">Open to freelance &amp; full-time</span>•<a class="recruiter-item clickable" href="mailto:shashankranjantech@gmail.com">shashankranjantech@gmail.com</a>•<span class="recruiter-item">Noida, Uttar Pradesh, India</span><a class="recruiter-item clickable" href="https://www.linkedin.com/in/shashank142004/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="recruiter-item clickable" href="https://github.com/Shashank9759/" target="_blank" rel="noopener noreferrer">GitHub</a>
+       </div>
+       <div class="hero-grid">
+        <div class="hero-copy">
+         <span class="status-badge reveal visible"><span class="status-dot"></span>Available for freelance &amp; full-time</span>
+         <h1 class="hero-name reveal visible">Shashank Ranjan</h1>
+         <h2 class="hero-title reveal visible">Android and Multiplatform Developer</h2>
+         <p class="hero-summary reveal visible">I build production-grade apps for Android Mobile, Android TV (Leanback), and cross-platform stacks — from real-time platforms serving 100K+ users to ML-powered health solutions. Experienced in Kotlin, Compose, iOS (SwiftUI &amp; UIKit), and TV-optimized UIs.</p>
+         <div class="tech-pills">
+          <span class="tech-pill reveal visible" style="--reveal-delay: 0ms;">Kotlin</span><span class="tech-pill reveal visible" style="--reveal-delay: 60ms;">Jetpack Compose</span><span class="tech-pill reveal visible" style="--reveal-delay: 120ms;">Android TV</span><span class="tech-pill reveal visible" style="--reveal-delay: 180ms;">Leanback</span><span class="tech-pill reveal visible" style="--reveal-delay: 240ms;">KMP</span><span class="tech-pill reveal visible" style="--reveal-delay: 300ms;">CMP</span><span class="tech-pill reveal visible" style="--reveal-delay: 360ms;">SwiftUI</span><span class="tech-pill reveal visible" style="--reveal-delay: 420ms;">UIKit</span>
+         </div>
+         <div class="hero-actions reveal visible">
+          <a class="btn btn-gradient" href="#contact">Hire Me</a><a class="btn btn-outline" href="https://drive.google.com/file/d/1GKQkZOtrKGyvd9rDtuEnEmYtJ6i5klmS/view?usp=sharing" target="_blank" rel="noopener noreferrer">View Resume</a><a class="btn btn-outline" href="#contact">Contact</a>
+         </div>
+        </div>
+        <div class="hero-avatar reveal visible">
+         <div class="avatar-wrap">
+          <div class="avatar-glow"></div>
+          <div class="avatar-ring">
+           <div class="avatar-core">
+            <div class="avatar-logos">
+             <img class="avatar-logo" src="assets/hero_android.png" alt=""><img class="avatar-logo" src="assets/hero_kotlin.png" alt=""><img class="avatar-logo" src="assets/hero_ai.png" alt="">
+            </div>
+            <p class="avatar-caption">Mobile · Multiplatform · AI</p>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="stats-divider"></div>
+       <div class="stats-grid">
+        <div class="stat-card glass reveal" style="--reveal-delay: 0ms;">
+         <div class="stat-value" data-target="100" data-suffix="K+">
+          0K+
+         </div>
+         <div class="stat-label">
+          App Downloads
+         </div>
+        </div>
+        <div class="stat-card glass reveal" style="--reveal-delay: 100ms;">
+         <div class="stat-value" data-target="10" data-suffix="+">
+          0+
+         </div>
+         <div class="stat-label">
+          Projects Shipped
+         </div>
+        </div>
+        <div class="stat-card glass reveal" style="--reveal-delay: 200ms;">
+         <div class="stat-value" data-target="4" data-suffix=".6" data-star="true">
+          0.6
+         </div>
+         <div class="stat-label">
+          Play Store Rating
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="section reveal" id="about">
+      <div class="container">
+       <div class="section-title-wrap">
+        <h2 class="section-title">About Me</h2><span class="section-underline"></span>
+       </div>
+       <div class="about-grid">
+        <div class="glass card reveal">
+         <p class="about-text">I'm a Software Development Engineer with deep expertise in native Android development — including Android Mobile and Android TV apps using the Leanback library for immersive 10-foot UI experiences. I also work across iOS (SwiftUI &amp; UIKit), Kotlin Multiplatform, Compose Multiplatform, React Native, and Flutter to deliver performant, user-centric applications with clean architecture and robust testing.</p>
+         <h3 class="subsection-title">Career Highlights</h3>
+         <ul class="bullet-list">
+          <li>Scaled CricRadio to 100K+ users with real-time socket-based cricket scoring</li>
+          <li>Achieved 95% data compression and 10% speed boost through custom server strategies</li>
+          <li>Collaborated with Bristol University on Federated Learning for mental well-being detection</li>
+          <li>Built ML-powered SkinLens app with custom TensorFlow Lite models</li>
+          <li>Mentored interns and led technical evaluations at Lifease Solutions</li>
+         </ul>
+        </div>
+        <div class="glass card reveal">
+         <h3 class="subsection-title">Education</h3>
+         <h4>Kunwar Satya Vira College of Engineering and Management</h4>
+         <p class="muted">Bachelor of Technology (B.Tech) in Computer Science</p>
+         <p class="muted small">Bijnor, Uttar Pradesh · April 2025</p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="section reveal" id="skills">
+      <div class="container">
+       <div class="section-title-wrap center">
+        <h2 class="section-title center">Skills &amp; Expertise</h2><span class="section-underline"></span>
+       </div>
+       <div class="grid skills-grid">
+        <div class="glass card skill-card reveal" style="--reveal-delay: 0ms;">
+         <div class="skill-header skill-header-shimmer" style="background: linear-gradient(135deg, rgb(27, 67, 50), rgb(45, 106, 79), rgb(64, 145, 108));">
+          <div class="skill-header-icon">
+           <span class="material-symbols-outlined skill-header-mat-icon">phone_android</span>
+          </div>
+          <div class="skill-header-text">
+           <h3>Android Mobile</h3>
+           <p>Jetpack Compose · Kotlin</p>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Jetpack Compose</span><span class="skill-pct">95%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 95%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Kotlin</span><span class="skill-pct">95%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 95%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>MVVM / Clean Architecture</span><span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 90%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Room / SQLite</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 85%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Testing (JUnit, Espresso, MockK)</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 85%;"></div>
+          </div>
+         </div>
+        </div>
+        <div class="glass card skill-card reveal" style="--reveal-delay: 80ms;">
+         <div class="skill-header skill-header-shimmer" style="background: linear-gradient(135deg, rgb(30, 27, 75), rgb(67, 56, 202), rgb(99, 102, 241));">
+          <div class="skill-header-icon">
+           <span class="material-symbols-outlined skill-header-mat-icon">home</span>
+          </div>
+          <div class="skill-header-text">
+           <h3>Android TV &amp; Leanback</h3>
+           <p>Leanback · Android TV</p>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Leanback Library</span><span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 80%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>RowsSupportFragment</span><span class="skill-pct">75%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 75%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>D-pad / Focus Navigation</span><span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 80%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>TV-Optimized UI (10-foot)</span><span class="skill-pct">78%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 78%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Android TV Compose</span><span class="skill-pct">72%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 72%;"></div>
+          </div>
+         </div>
+        </div>
+        <div class="glass card skill-card reveal" style="--reveal-delay: 160ms;">
+         <div class="skill-header skill-header-shimmer" style="background: linear-gradient(135deg, rgb(45, 27, 105), rgb(127, 82, 255), rgb(228, 87, 46));">
+          <div class="skill-header-icon">
+           <span class="material-symbols-outlined skill-header-mat-icon">share</span>
+          </div>
+          <div class="skill-header-text">
+           <h3>Kotlin Multiplatform</h3>
+           <p>Shared logic · Multiplatform</p>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Shared Business Logic</span><span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 80%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Ktor Client</span><span class="skill-pct">75%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 75%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>SQLDelight</span><span class="skill-pct">70%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 70%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>KMP Networking</span><span class="skill-pct">75%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 75%;"></div>
+          </div>
+         </div>
+        </div>
+        <div class="glass card skill-card reveal" style="--reveal-delay: 240ms;">
+         <div class="skill-header skill-header-shimmer" style="background: linear-gradient(135deg, rgb(13, 71, 161), rgb(25, 118, 210), rgb(66, 165, 245));">
+          <div class="skill-header-icon">
+           <span class="material-symbols-outlined skill-header-mat-icon">share</span>
+          </div>
+          <div class="skill-header-text">
+           <h3>Compose Multiplatform</h3>
+           <p>Web · Mobile · Desktop UI</p>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Shared UI Components</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 85%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Web / Wasm Target</span><span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 80%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Responsive Layouts</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 85%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Material 3 Theming</span><span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 90%;"></div>
+          </div>
+         </div>
+        </div>
+        <div class="glass card skill-card reveal" style="--reveal-delay: 320ms;">
+         <div class="skill-header skill-header-shimmer" style="background: linear-gradient(135deg, rgb(28, 28, 30), rgb(58, 58, 60), rgb(0, 122, 255));">
+          <div class="skill-header-icon">
+           <span class="material-symbols-outlined skill-header-mat-icon">phone_iphone</span>
+          </div>
+          <div class="skill-header-text">
+           <h3>iOS Development</h3>
+           <p>SwiftUI · UIKit</p>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>SwiftUI</span><span class="skill-pct">75%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 75%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>UIKit</span><span class="skill-pct">70%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 70%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Auto Layout &amp; Storyboards</span><span class="skill-pct">65%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 65%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>iOS Architecture Patterns</span><span class="skill-pct">70%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 70%;"></div>
+          </div>
+         </div>
+        </div>
+        <div class="glass card skill-card reveal" style="--reveal-delay: 400ms;">
+         <div class="skill-header skill-header-shimmer" style="background: linear-gradient(135deg, rgb(76, 29, 149), rgb(8, 145, 178), rgb(245, 158, 11));">
+          <div class="skill-header-icon">
+           <span class="material-symbols-outlined skill-header-mat-icon">share</span>
+          </div>
+          <div class="skill-header-text">
+           <h3>Cross-Platform</h3>
+           <p>React Native · Flutter</p>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>React Native</span><span class="skill-pct">70%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 70%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Flutter</span><span class="skill-pct">65%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 65%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>KMP Shared Logic</span><span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 80%;"></div>
+          </div>
+         </div>
+        </div>
+        <div class="glass card skill-card reveal" style="--reveal-delay: 480ms;">
+         <div class="skill-header skill-header-shimmer" style="background: linear-gradient(135deg, rgb(12, 74, 110), rgb(3, 105, 161), rgb(56, 189, 248));">
+          <div class="skill-header-icon">
+           <span class="material-symbols-outlined skill-header-mat-icon">cloud</span>
+          </div>
+          <div class="skill-header-text">
+           <h3>Backend &amp; APIs</h3>
+           <p>REST · WebSockets · Firebase</p>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>RESTful APIs</span><span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 90%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Retrofit / OkHttp</span><span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 90%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Socket.IO / WebSockets</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 85%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Firebase / Supabase</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 85%;"></div>
+          </div>
+         </div>
+        </div>
+        <div class="glass card skill-card reveal" style="--reveal-delay: 560ms;">
+         <div class="skill-header skill-header-shimmer" style="background: linear-gradient(135deg, rgb(49, 46, 129), rgb(124, 58, 237), rgb(168, 85, 247));">
+          <div class="skill-header-icon">
+           <span class="material-symbols-outlined skill-header-mat-icon">star</span>
+          </div>
+          <div class="skill-header-text">
+           <h3>AI &amp; Machine Learning</h3>
+           <p>Gemini · OpenAI · TFLite · ML Kit</p>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>On-device ML (TensorFlow Lite)</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 85%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>ML Kit &amp; Vision APIs</span><span class="skill-pct">82%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 82%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>AI API Integration (Gemini / OpenAI)</span><span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 80%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Federated Learning</span><span class="skill-pct">75%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 75%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Prompt Engineering &amp; RAG</span><span class="skill-pct">78%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 78%;"></div>
+          </div>
+         </div>
+        </div>
+        <div class="glass card skill-card reveal" style="--reveal-delay: 640ms;">
+         <div class="skill-header skill-header-shimmer" style="background: linear-gradient(135deg, rgb(124, 45, 18), rgb(234, 88, 12), rgb(251, 191, 36));">
+          <div class="skill-header-icon">
+           <span class="material-symbols-outlined skill-header-mat-icon">build</span>
+          </div>
+          <div class="skill-header-text">
+           <h3>Tools &amp; Technologies</h3>
+           <p>Git · Gradle · CI/CD</p>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Git / GitHub</span><span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 90%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Gradle / CI/CD</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 85%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>TensorFlow Lite</span><span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 80%;"></div>
+          </div>
+         </div>
+         <div class="skill-row">
+          <div class="skill-head">
+           <span>Performance Optimization</span><span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-track">
+           <div class="skill-fill" style="--skill-width: 85%;"></div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="section reveal" id="experience">
+      <div class="container">
+       <div class="section-title-wrap center">
+        <h2 class="section-title center">Work Experience</h2><span class="section-underline"></span>
+       </div>
+       <div class="stack">
+        <article class="glass card experience-card reveal" style="--reveal-delay: 0ms;">
+         <div class="exp-header">
+          <div>
+           <h3>SDE-1 - Android</h3>
+           <p class="company">Lifease Solutions LLP</p>
+           <p class="muted small">Noida, Uttar Pradesh, India · June 2025 – Present</p>
+          </div><a class="icon-link" href="https://play.google.com/store/apps/details?id=com.lifease.cricradio" target="_blank" rel="noopener noreferrer" aria-label="Open link">↗</a>
+         </div>
+         <ul class="bullet-list compact">
+          <li>Developed CricRadio, a real-time cricket app using Kotlin, Jetpack Compose, Ktor, and Socket.IO, scaling to 100K+ users</li>
+          <li>Implemented 95% data compression and 10% speed boost via custom server strategies</li>
+          <li>Led feature optimization, UI/backend collaboration, and tech strategy based on competitive benchmarking</li>
+          <li>Wrote robust tests (JUnit, MockK, Espresso) and managed intern hiring through technical evaluations</li>
+         </ul>
+        </article>
+        <article class="glass card experience-card reveal" style="--reveal-delay: 150ms;">
+         <div class="exp-header">
+          <div>
+           <h3>Android Research Collaborator</h3>
+           <p class="company">Bristol University</p>
+           <p class="muted small">Bristol, United Kingdom · Nov 2024 – May 2025</p>
+          </div><a class="icon-link" href="https://drive.google.com/file/d/1TIO-CVvhHMu8bwdtO9xf8-nm46C8p0SZ/view" target="_blank" rel="noopener noreferrer" aria-label="Open link">↗</a>
+         </div>
+         <ul class="bullet-list compact">
+          <li>Collaborated on Federated Learning solutions for early mental well-being detection</li>
+          <li>Developed digital health app tracking physical activities via Activity Recognition, Google Fit, Sleep API</li>
+          <li>Built offline-first system using Room DB syncing to Firebase with Jetpack Compose UI</li>
+         </ul>
+        </article>
+        <article class="glass card experience-card reveal" style="--reveal-delay: 300ms;">
+         <div class="exp-header">
+          <div>
+           <h3>SDE 1 Intern</h3>
+           <p class="company">Putatoe Solution Pvt. Ltd</p>
+           <p class="muted small">Gorakhpur, Uttar Pradesh, India · Feb 2024 – May 2024</p>
+          </div><a class="icon-link" href="https://drive.google.com/file/d/1MOH_qfeNduzcvWoMyb-zAAlaTueUZ2u-/view" target="_blank" rel="noopener noreferrer" aria-label="Open link">↗</a>
+         </div>
+         <ul class="bullet-list compact">
+          <li>Implemented Agile methodologies and CI/CD using Retrofit, JSON, and WorkManager</li>
+          <li>Applied MVVM and Clean Architecture with Broadcast Receivers and Services</li>
+          <li>Developed product adding system with push notifications and Google Maps API integration</li>
+         </ul>
+        </article>
+        <article class="glass card experience-card reveal" style="--reveal-delay: 450ms;">
+         <div class="exp-header">
+          <div>
+           <h3>Android Developer Intern</h3>
+           <p class="company">Flexo Technology</p>
+           <p class="muted small">Maharashtra, India · Nov 2023 – Jan 2024</p>
+          </div>
+         </div>
+         <ul class="bullet-list compact">
+          <li>Redesigned UI and added features for crypto news and status apps, improving user retention</li>
+          <li>Optimized code, resolved bugs, and enhanced UI/UX with custom bottom bar and view graphs</li>
+         </ul>
+        </article>
+       </div>
+      </div>
+     </section>
+     <section class="section reveal" id="organizations">
+      <div class="container">
+       <div class="section-title-wrap center">
+        <h2 class="section-title center">Helping Organisations Build Apps</h2><span class="section-underline"></span>
+       </div>
+       <p class="section-subtitle center">Partnering with teams and institutions to ship production-ready mobile products.</p>
+       <div class="grid org-grid">
+        <article class="glass card org-card reveal" style="--reveal-delay: 0ms;">
+         <img class="card-image org-image" src="assets/project_cricradio.png" alt="CricRadio">
+         <p class="company">Lifease Solutions LLP</p>
+         <h3>CricRadio</h3>
+         <p class="muted">Real-time cricket scoring app scaled to 100K+ Play Store downloads with sockets, compression, and Compose UI.</p><a class="btn btn-outline btn-sm" href="https://play.google.com/store/apps/details?id=com.lifease.cricradio" target="_blank" rel="noopener noreferrer">View app</a>
+        </article>
+        <article class="glass card org-card reveal" style="--reveal-delay: 120ms;">
+         <img class="card-image org-image" src="assets/project_skinlens.png" alt="Mental Well-being Tracker">
+         <p class="company">Bristol University</p>
+         <h3>Mental Well-being Tracker</h3>
+         <p class="muted">Research collaboration — offline-first health app with Federated Learning, Google Fit, and Jetpack Compose.</p><a class="btn btn-outline btn-sm" href="https://drive.google.com/file/d/1TIO-CVvhHMu8bwdtO9xf8-nm46C8p0SZ/view" target="_blank" rel="noopener noreferrer">View app</a>
+        </article>
+        <article class="glass card org-card reveal" style="--reveal-delay: 240ms;">
+         <img class="card-image org-image" src="assets/project_rrbmustudies.png" alt="RRBMU Studies">
+         <p class="company">RRBMU College</p>
+         <h3>RRBMU Studies</h3>
+         <p class="muted">University learning app with Firebase, push notifications, and content workflows — 1000+ student downloads.</p><a class="btn btn-outline btn-sm" href="https://play.google.com/store/apps/details?id=com.studies.rrbmustudies" target="_blank" rel="noopener noreferrer">View app</a>
+        </article>
+        <article class="glass card org-card reveal" style="--reveal-delay: 360ms;">
+         <img class="card-image org-image" src="assets/org_putatoe.png" alt="Putatoe : One Solution">
+         <p class="company">Putatoe Solution Pvt. Ltd</p>
+         <h3>Putatoe : One Solution</h3>
+         <p class="muted">One-stop local business platform — search, compare, and book services with maps, chat, and push notifications. 10K+ Play Store downloads.</p><a class="btn btn-outline btn-sm" href="https://play.google.com/store/apps/details?id=com.putatoeapp.application&amp;hl=en_IN" target="_blank" rel="noopener noreferrer">View app</a>
+        </article>
+       </div>
+      </div>
+     </section>
+     <section class="section reveal" id="projects">
+      <div class="container">
+       <div class="section-title-wrap center">
+        <h2 class="section-title center">Featured Projects</h2><span class="section-underline"></span>
+       </div>
+       <div class="grid project-grid">
+        <article class="glass card project-card reveal" style="--reveal-delay: 0ms;">
+         <img class="card-image" src="assets/project_cricradio.png" alt="CricRadio">
+         <h3>CricRadio</h3>
+         <p class="muted">Real-time cricket score app with socket-based live updates, serving 100K+ users on the Play Store.</p>
+         <ul class="bullet-list compact">
+          <li>Real-time scoring via socket communication</li>
+          <li>Unit &amp; instrumentation tests with Kover coverage</li>
+         </ul>
+         <div class="chips">
+          <span class="chip">Kotlin</span><span class="chip">Jetpack Compose</span><span class="chip">MVVM</span><span class="chip">Socket.IO</span>
+         </div>
+         <div class="card-actions">
+          <a class="btn btn-outline btn-sm" href="https://play.google.com/store/apps/details?id=com.lifease.cricradio" target="_blank" rel="noopener noreferrer">Live</a>
+         </div>
+        </article>
+        <article class="glass card project-card reveal" style="--reveal-delay: 120ms;">
+         <img class="card-image" src="assets/project_codersaidhub.png" alt="CodersAidHub">
+         <h3>CodersAidHub</h3>
+         <p class="muted">Social media platform for coders with infinite scroll feed, messaging, and AI image processing.</p>
+         <div class="chips">
+          <span class="chip">Kotlin</span><span class="chip">Firebase</span><span class="chip">Firestore</span><span class="chip">Coroutines</span>
+         </div>
+         <div class="card-actions">
+          <a class="btn btn-outline btn-sm" href="https://github.com/Shashank9759/CodersAidHub" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn btn-outline btn-sm" href="https://www.youtube.com/watch?v=f6jp2JPFvcg" target="_blank" rel="noopener noreferrer">Demo</a>
+         </div>
+        </article>
+        <article class="glass card project-card reveal" style="--reveal-delay: 240ms;">
+         <img class="card-image" src="assets/project_rrbmustudies.png" alt="RRBMU Studies">
+         <h3>RRBMU Studies</h3>
+         <p class="muted">Academic app for Rajasthan university with 1000+ downloads and 4.6★ rating on Play Store.</p>
+         <div class="chips">
+          <span class="chip">Kotlin</span><span class="chip">Firebase</span><span class="chip">AdMob</span><span class="chip">Push Notifications</span>
+         </div>
+         <div class="card-actions">
+          <a class="btn btn-outline btn-sm" href="https://github.com/Shashank9759/RRBMU-Studies-University-App" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn btn-outline btn-sm" href="https://play.google.com/store/apps/details?id=com.studies.rrbmustudies" target="_blank" rel="noopener noreferrer">Live</a><a class="btn btn-outline btn-sm" href="https://www.youtube.com/shorts/5Hq4sOf_sIk" target="_blank" rel="noopener noreferrer">Demo</a>
+         </div>
+        </article>
+        <article class="glass card project-card reveal" style="--reveal-delay: 360ms;">
+         <img class="card-image" src="assets/project_skinlens.png" alt="SkinLens">
+         <h3>SkinLens</h3>
+         <p class="muted">ML-powered skin disease detection app with custom TensorFlow Lite model and CameraX integration.</p>
+         <div class="chips">
+          <span class="chip">Jetpack Compose</span><span class="chip">Clean Architecture</span><span class="chip">TensorFlow</span><span class="chip">TFLite</span>
+         </div>
+         <div class="card-actions">
+          <a class="btn btn-outline btn-sm" href="https://github.com/Shashank9759/SkinLens--Skin-Disease-Detector-App" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn btn-outline btn-sm" href="https://www.youtube.com/shorts/loplQYV1rkQ" target="_blank" rel="noopener noreferrer">Demo</a>
+         </div>
+        </article>
+        <article class="glass card project-card reveal" style="--reveal-delay: 480ms;">
+         <img class="card-image" src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/tensorflow/tensorflow-original.svg" alt="DHM3">
+         <h3>DHM3</h3>
+         <p class="muted">Bristol University research collaboration — digital health monitoring app with Federated Learning, Activity Recognition, Google Fit, and offline-first Room sync.</p>
+         <ul class="bullet-list compact">
+          <li>Android Research Collaborator at Bristol University</li>
+          <li>Offline-first health tracking with Room + Firebase sync</li>
+         </ul>
+         <div class="chips">
+          <span class="chip">Kotlin</span><span class="chip">Jetpack Compose</span><span class="chip">Room</span><span class="chip">Google Fit</span>
+         </div>
+         <div class="card-actions">
+          <a class="btn btn-outline btn-sm" href="https://github.com/Shashank9759/DHM3" target="_blank" rel="noopener noreferrer">GitHub</a>
+         </div>
+        </article>
+        <article class="glass card project-card reveal" style="--reveal-delay: 600ms;">
+         <img class="card-image" src="assets/project_yaaddiary.png" alt="Yaad Diary">
+         <h3>Yaad Diary</h3>
+         <p class="muted">Note-taking app with Room DB, MVVM, search, and priority settings.</p>
+         <div class="chips">
+          <span class="chip">Kotlin</span><span class="chip">Room DB</span><span class="chip">MVVM</span><span class="chip">Coroutines</span>
+         </div>
+         <div class="card-actions">
+          <a class="btn btn-outline btn-sm" href="https://github.com/Shashank9759/Yaad-Diary" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn btn-outline btn-sm" href="https://www.youtube.com/shorts/fxOPU7HlgpU" target="_blank" rel="noopener noreferrer">Demo</a>
+         </div>
+        </article>
+        <article class="glass card project-card reveal" style="--reveal-delay: 720ms;">
+         <img class="card-image" src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/firebase/firebase-original.svg" alt="College Registration">
+         <h3>College Registration</h3>
+         <p class="muted">Real-time student registration app built with Hilt, MVVM, and Firebase Realtime DB.</p>
+         <div class="chips">
+          <span class="chip">Kotlin</span><span class="chip">Hilt</span><span class="chip">MVVM</span><span class="chip">Firebase Realtime DB</span>
+         </div>
+         <div class="card-actions">
+          <a class="btn btn-outline btn-sm" href="https://github.com/Shashank9759/College-Registration-App" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn btn-outline btn-sm" href="https://www.youtube.com/shorts/n1GgbkVmPho" target="_blank" rel="noopener noreferrer">Demo</a>
+         </div>
+        </article>
+       </div>
+      </div>
+     </section>
+     <section class="section reveal" id="services">
+      <div class="container">
+       <div class="section-title-wrap center">
+        <h2 class="section-title center">Freelancing Services</h2><span class="section-underline"></span>
+       </div>
+       <p class="section-subtitle center">Select a service to explore — the featured panel updates automatically.</p>
+       <div class="service-stats glass reveal">
+        <div class="service-stat">
+         <b>10</b><span>Services</span>
+        </div>
+        <div class="service-stat">
+         <b>50+</b><span>Projects</span>
+        </div>
+        <div class="service-stat">
+         <b>100K+</b><span>Downloads</span>
+        </div>
+        <div class="service-stat">
+         <b>24h</b><span>Response</span>
+        </div>
+       </div>
+       <div class="service-chips reveal">
+        <button class="chip service-chip active" type="button" data-service-index="0"><span class="service-chip-icon-wrap" style="background: linear-gradient(135deg, rgb(45, 106, 79), rgb(64, 145, 108));"><span class="material-symbols-outlined service-chip-icon">phone_android</span></span>Android App Development</button><button class="chip service-chip" type="button" data-service-index="1"><span class="service-chip-icon-wrap" style="background: linear-gradient(135deg, rgb(67, 56, 202), rgb(99, 102, 241));"><span class="material-symbols-outlined service-chip-icon">home</span></span>Android TV Development</button><button class="chip service-chip" type="button" data-service-index="2"><span class="service-chip-icon-wrap" style="background: linear-gradient(135deg, rgb(127, 82, 255), rgb(228, 87, 46));"><span class="material-symbols-outlined service-chip-icon">share</span></span>Kotlin Multiplatform Development</button><button class="chip service-chip" type="button" data-service-index="3"><span class="service-chip-icon-wrap" style="background: linear-gradient(135deg, rgb(25, 118, 210), rgb(66, 165, 245));"><span class="material-symbols-outlined service-chip-icon">share</span></span>Compose Multiplatform Development</button><button class="chip service-chip" type="button" data-service-index="4"><span class="service-chip-icon-wrap" style="background: linear-gradient(135deg, rgb(8, 145, 178), rgb(245, 158, 11));"><span class="material-symbols-outlined service-chip-icon">share</span></span>Cross-Platform Mobile Development</button><button class="chip service-chip" type="button" data-service-index="5"><span class="service-chip-icon-wrap" style="background: linear-gradient(135deg, rgb(124, 58, 237), rgb(236, 72, 153));"><span class="material-symbols-outlined service-chip-icon">edit</span></span>UI/UX Implementation</button><button class="chip service-chip" type="button" data-service-index="6"><span class="service-chip-icon-wrap" style="background: linear-gradient(135deg, rgb(3, 105, 161), rgb(56, 189, 248));"><span class="material-symbols-outlined service-chip-icon">cloud</span></span>API Integration</button><button class="chip service-chip" type="button" data-service-index="7"><span class="service-chip-icon-wrap" style="background: linear-gradient(135deg, rgb(234, 88, 12), rgb(251, 191, 36));"><span class="material-symbols-outlined service-chip-icon">star</span></span>Performance Optimization</button><button class="chip service-chip" type="button" data-service-index="8"><span class="service-chip-icon-wrap" style="background: linear-gradient(135deg, rgb(109, 40, 217), rgb(168, 85, 247));"><span class="material-symbols-outlined service-chip-icon">star</span></span>AI Integration &amp; On-Device ML</button><button class="chip service-chip" type="button" data-service-index="9"><span class="service-chip-icon-wrap" style="background: linear-gradient(135deg, rgb(5, 150, 105), rgb(52, 211, 153));"><span class="material-symbols-outlined service-chip-icon">info</span></span>App Maintenance &amp; Support</button>
+       </div>
+       <div class="service-panels-wrap reveal">
+        <article class="glass card service-panel active" data-service-panel="0">
+         <div class="featured-panel">
+          <div class="featured-icon" style="background: linear-gradient(135deg, rgb(45, 106, 79), rgb(64, 145, 108));">
+           <span class="material-symbols-outlined featured-mat-icon">phone_android</span>
+          </div>
+          <div>
+           <p class="featured-label">Featured Service</p>
+           <h3>Android App Development</h3>
+           <p class="muted">End-to-end native Android mobile apps with Jetpack Compose, MVVM, and Clean Architecture.</p>
+           <p class="delivery-hint">Typical MVP: 4–8 weeks</p>
+           <div class="chips">
+            <span class="chip">Jetpack Compose</span><span class="chip">MVVM</span><span class="chip">Room</span><span class="chip">Play Store</span><span class="chip">Testing</span>
+           </div>
+          </div>
+         </div>
+        </article>
+        <article class="glass card service-panel" data-service-panel="1">
+         <div class="featured-panel">
+          <div class="featured-icon" style="background: linear-gradient(135deg, rgb(67, 56, 202), rgb(99, 102, 241));">
+           <span class="material-symbols-outlined featured-mat-icon">home</span>
+          </div>
+          <div>
+           <p class="featured-label">Featured Service</p>
+           <h3>Android TV Development</h3>
+           <p class="muted">Android TV apps with Leanback library, D-pad navigation, and immersive 10-foot UI experiences.</p>
+           <p class="delivery-hint">TV-ready builds &amp; sideload support</p>
+           <div class="chips">
+            <span class="chip">Leanback</span><span class="chip">D-pad UX</span><span class="chip">Focus Navigation</span><span class="chip">TV Compose</span>
+           </div>
+          </div>
+         </div>
+        </article>
+        <article class="glass card service-panel" data-service-panel="2">
+         <div class="featured-panel">
+          <div class="featured-icon" style="background: linear-gradient(135deg, rgb(127, 82, 255), rgb(228, 87, 46));">
+           <span class="material-symbols-outlined featured-mat-icon">share</span>
+          </div>
+          <div>
+           <p class="featured-label">Featured Service</p>
+           <h3>Kotlin Multiplatform Development</h3>
+           <p class="muted">Shared business logic across Android, iOS, and Desktop with KMP.</p>
+           <p class="delivery-hint">Shared modules + platform shells</p>
+           <div class="chips">
+            <span class="chip">Ktor</span><span class="chip">SQLDelight</span><span class="chip">expect/actual</span><span class="chip">Shared Domain</span>
+           </div>
+          </div>
+         </div>
+        </article>
+        <article class="glass card service-panel" data-service-panel="3">
+         <div class="featured-panel">
+          <div class="featured-icon" style="background: linear-gradient(135deg, rgb(25, 118, 210), rgb(66, 165, 245));">
+           <span class="material-symbols-outlined featured-mat-icon">share</span>
+          </div>
+          <div>
+           <p class="featured-label">Featured Service</p>
+           <h3>Compose Multiplatform Development</h3>
+           <p class="muted">Unified UI across platforms with Compose Multiplatform for web and mobile.</p>
+           <p class="delivery-hint">One codebase, all screens</p>
+           <div class="chips">
+            <span class="chip">Wasm Web</span><span class="chip">Android</span><span class="chip">iOS</span><span class="chip">Desktop</span><span class="chip">Material 3</span>
+           </div>
+          </div>
+         </div>
+        </article>
+        <article class="glass card service-panel" data-service-panel="4">
+         <div class="featured-panel">
+          <div class="featured-icon" style="background: linear-gradient(135deg, rgb(8, 145, 178), rgb(245, 158, 11));">
+           <span class="material-symbols-outlined featured-mat-icon">share</span>
+          </div>
+          <div>
+           <p class="featured-label">Featured Service</p>
+           <h3>Cross-Platform Mobile Development</h3>
+           <p class="muted">React Native, Flutter, SwiftUI, and UIKit solutions for multi-platform reach.</p>
+           <p class="delivery-hint">Platform-native feel</p>
+           <div class="chips">
+            <span class="chip">React Native</span><span class="chip">Flutter</span><span class="chip">SwiftUI</span><span class="chip">UIKit</span>
+           </div>
+          </div>
+         </div>
+        </article>
+        <article class="glass card service-panel" data-service-panel="5">
+         <div class="featured-panel">
+          <div class="featured-icon" style="background: linear-gradient(135deg, rgb(124, 58, 237), rgb(236, 72, 153));">
+           <span class="material-symbols-outlined featured-mat-icon">edit</span>
+          </div>
+          <div>
+           <p class="featured-label">Featured Service</p>
+           <h3>UI/UX Implementation</h3>
+           <p class="muted">Pixel-perfect, animated interfaces with modern design patterns and responsive layouts.</p>
+           <p class="delivery-hint">Design handoff → production UI</p>
+           <div class="chips">
+            <span class="chip">Figma to Code</span><span class="chip">Animations</span><span class="chip">Design Systems</span><span class="chip">Accessibility</span>
+           </div>
+          </div>
+         </div>
+        </article>
+        <article class="glass card service-panel" data-service-panel="6">
+         <div class="featured-panel">
+          <div class="featured-icon" style="background: linear-gradient(135deg, rgb(3, 105, 161), rgb(56, 189, 248));">
+           <span class="material-symbols-outlined featured-mat-icon">cloud</span>
+          </div>
+          <div>
+           <p class="featured-label">Featured Service</p>
+           <h3>API Integration</h3>
+           <p class="muted">RESTful APIs, WebSockets, Firebase, and third-party SDK integrations.</p>
+           <p class="delivery-hint">Real-time &amp; offline-first</p>
+           <div class="chips">
+            <span class="chip">Retrofit</span><span class="chip">Ktor</span><span class="chip">Socket.IO</span><span class="chip">Firebase</span><span class="chip">Supabase</span>
+           </div>
+          </div>
+         </div>
+        </article>
+        <article class="glass card service-panel" data-service-panel="7">
+         <div class="featured-panel">
+          <div class="featured-icon" style="background: linear-gradient(135deg, rgb(234, 88, 12), rgb(251, 191, 36));">
+           <span class="material-symbols-outlined featured-mat-icon">star</span>
+          </div>
+          <div>
+           <p class="featured-label">Featured Service</p>
+           <h3>Performance Optimization</h3>
+           <p class="muted">Multithreading, caching, compression strategies, and app profiling.</p>
+           <p class="delivery-hint">Measurable speed gains</p>
+           <div class="chips">
+            <span class="chip">Profiling</span><span class="chip">Caching</span><span class="chip">Compression</span><span class="chip">Startup Time</span>
+           </div>
+          </div>
+         </div>
+        </article>
+        <article class="glass card service-panel" data-service-panel="8">
+         <div class="featured-panel">
+          <div class="featured-icon" style="background: linear-gradient(135deg, rgb(109, 40, 217), rgb(168, 85, 247));">
+           <span class="material-symbols-outlined featured-mat-icon">star</span>
+          </div>
+          <div>
+           <p class="featured-label">Featured Service</p>
+           <h3>AI Integration &amp; On-Device ML</h3>
+           <p class="muted">Trending AI features — Gemini/OpenAI APIs, ML Kit, TensorFlow Lite, chatbots, and smart automation in mobile apps.</p>
+           <p class="delivery-hint">From AI chat to on-device inference</p>
+           <div class="chips">
+            <span class="chip">Gemini API</span><span class="chip">OpenAI</span><span class="chip">ML Kit</span><span class="chip">TFLite</span><span class="chip">RAG</span><span class="chip">On-device AI</span>
+           </div>
+          </div>
+         </div>
+        </article>
+        <article class="glass card service-panel" data-service-panel="9">
+         <div class="featured-panel">
+          <div class="featured-icon" style="background: linear-gradient(135deg, rgb(5, 150, 105), rgb(52, 211, 153));">
+           <span class="material-symbols-outlined featured-mat-icon">info</span>
+          </div>
+          <div>
+           <p class="featured-label">Featured Service</p>
+           <h3>App Maintenance &amp; Support</h3>
+           <p class="muted">Bug fixes, feature updates, testing, and long-term app maintenance.</p>
+           <p class="delivery-hint">Monthly retainer available</p>
+           <div class="chips">
+            <span class="chip">Bug Fixes</span><span class="chip">SDK Updates</span><span class="chip">CI/CD</span><span class="chip">Monitoring</span>
+           </div>
+          </div>
+         </div>
+        </article>
+       </div>
+       <div class="service-grid">
+        <article class="glass card service-grid-card reveal selected" style="--reveal-delay: 0ms; --service-accent: #2D6A4F;">
+         <div class="service-grid-head">
+          <div class="service-grid-icon-wrap" style="background: linear-gradient(135deg, rgb(45, 106, 79), rgb(64, 145, 108));">
+           <span class="material-symbols-outlined service-grid-mat-icon">phone_android</span>
+          </div>
+          <div class="service-grid-title-wrap">
+           <b>Android App Development</b>
+           <p class="delivery-hint small">Typical MVP: 4–8 weeks</p>
+          </div><span class="material-symbols-outlined service-grid-check">check_circle</span>
+         </div>
+         <p class="muted small">End-to-end native Android mobile apps with Jetpack Compose, MVVM, and Clean Architecture.</p>
+        </article>
+        <article class="glass card service-grid-card reveal" style="--reveal-delay: 80ms; --service-accent: #4338CA;">
+         <div class="service-grid-head">
+          <div class="service-grid-icon-wrap" style="background: linear-gradient(135deg, rgb(67, 56, 202), rgb(99, 102, 241));">
+           <span class="material-symbols-outlined service-grid-mat-icon">home</span>
+          </div>
+          <div class="service-grid-title-wrap">
+           <b>Android TV Development</b>
+           <p class="delivery-hint small">TV-ready builds &amp; sideload support</p>
+          </div><span class="material-symbols-outlined service-grid-check">check_circle</span>
+         </div>
+         <p class="muted small">Android TV apps with Leanback library, D-pad navigation, and immersive 10-foot UI experien…</p>
+        </article>
+        <article class="glass card service-grid-card reveal" style="--reveal-delay: 160ms; --service-accent: #7F52FF;">
+         <div class="service-grid-head">
+          <div class="service-grid-icon-wrap" style="background: linear-gradient(135deg, rgb(127, 82, 255), rgb(228, 87, 46));">
+           <span class="material-symbols-outlined service-grid-mat-icon">share</span>
+          </div>
+          <div class="service-grid-title-wrap">
+           <b>Kotlin Multiplatform Development</b>
+           <p class="delivery-hint small">Shared modules + platform shells</p>
+          </div><span class="material-symbols-outlined service-grid-check">check_circle</span>
+         </div>
+         <p class="muted small">Shared business logic across Android, iOS, and Desktop with KMP.</p>
+        </article>
+        <article class="glass card service-grid-card reveal" style="--reveal-delay: 240ms; --service-accent: #1976D2;">
+         <div class="service-grid-head">
+          <div class="service-grid-icon-wrap" style="background: linear-gradient(135deg, rgb(25, 118, 210), rgb(66, 165, 245));">
+           <span class="material-symbols-outlined service-grid-mat-icon">share</span>
+          </div>
+          <div class="service-grid-title-wrap">
+           <b>Compose Multiplatform Development</b>
+           <p class="delivery-hint small">One codebase, all screens</p>
+          </div><span class="material-symbols-outlined service-grid-check">check_circle</span>
+         </div>
+         <p class="muted small">Unified UI across platforms with Compose Multiplatform for web and mobile.</p>
+        </article>
+        <article class="glass card service-grid-card reveal" style="--reveal-delay: 320ms; --service-accent: #0891B2;">
+         <div class="service-grid-head">
+          <div class="service-grid-icon-wrap" style="background: linear-gradient(135deg, rgb(8, 145, 178), rgb(245, 158, 11));">
+           <span class="material-symbols-outlined service-grid-mat-icon">share</span>
+          </div>
+          <div class="service-grid-title-wrap">
+           <b>Cross-Platform Mobile Development</b>
+           <p class="delivery-hint small">Platform-native feel</p>
+          </div><span class="material-symbols-outlined service-grid-check">check_circle</span>
+         </div>
+         <p class="muted small">React Native, Flutter, SwiftUI, and UIKit solutions for multi-platform reach.</p>
+        </article>
+        <article class="glass card service-grid-card reveal" style="--reveal-delay: 400ms; --service-accent: #7C3AED;">
+         <div class="service-grid-head">
+          <div class="service-grid-icon-wrap" style="background: linear-gradient(135deg, rgb(124, 58, 237), rgb(236, 72, 153));">
+           <span class="material-symbols-outlined service-grid-mat-icon">edit</span>
+          </div>
+          <div class="service-grid-title-wrap">
+           <b>UI/UX Implementation</b>
+           <p class="delivery-hint small">Design handoff → production UI</p>
+          </div><span class="material-symbols-outlined service-grid-check">check_circle</span>
+         </div>
+         <p class="muted small">Pixel-perfect, animated interfaces with modern design patterns and responsive layouts.</p>
+        </article>
+        <article class="glass card service-grid-card reveal" style="--reveal-delay: 480ms; --service-accent: #0369A1;">
+         <div class="service-grid-head">
+          <div class="service-grid-icon-wrap" style="background: linear-gradient(135deg, rgb(3, 105, 161), rgb(56, 189, 248));">
+           <span class="material-symbols-outlined service-grid-mat-icon">cloud</span>
+          </div>
+          <div class="service-grid-title-wrap">
+           <b>API Integration</b>
+           <p class="delivery-hint small">Real-time &amp; offline-first</p>
+          </div><span class="material-symbols-outlined service-grid-check">check_circle</span>
+         </div>
+         <p class="muted small">RESTful APIs, WebSockets, Firebase, and third-party SDK integrations.</p>
+        </article>
+        <article class="glass card service-grid-card reveal" style="--reveal-delay: 560ms; --service-accent: #EA580C;">
+         <div class="service-grid-head">
+          <div class="service-grid-icon-wrap" style="background: linear-gradient(135deg, rgb(234, 88, 12), rgb(251, 191, 36));">
+           <span class="material-symbols-outlined service-grid-mat-icon">star</span>
+          </div>
+          <div class="service-grid-title-wrap">
+           <b>Performance Optimization</b>
+           <p class="delivery-hint small">Measurable speed gains</p>
+          </div><span class="material-symbols-outlined service-grid-check">check_circle</span>
+         </div>
+         <p class="muted small">Multithreading, caching, compression strategies, and app profiling.</p>
+        </article>
+        <article class="glass card service-grid-card reveal" style="--reveal-delay: 640ms; --service-accent: #6D28D9;">
+         <div class="service-grid-head">
+          <div class="service-grid-icon-wrap" style="background: linear-gradient(135deg, rgb(109, 40, 217), rgb(168, 85, 247));">
+           <span class="material-symbols-outlined service-grid-mat-icon">star</span>
+          </div>
+          <div class="service-grid-title-wrap">
+           <b>AI Integration &amp; On-Device ML</b>
+           <p class="delivery-hint small">From AI chat to on-device inference</p>
+          </div><span class="material-symbols-outlined service-grid-check">check_circle</span>
+         </div>
+         <p class="muted small">Trending AI features — Gemini/OpenAI APIs, ML Kit, TensorFlow Lite, chatbots, and smart au…</p>
+        </article>
+        <article class="glass card service-grid-card reveal" style="--reveal-delay: 720ms; --service-accent: #059669;">
+         <div class="service-grid-head">
+          <div class="service-grid-icon-wrap" style="background: linear-gradient(135deg, rgb(5, 150, 105), rgb(52, 211, 153));">
+           <span class="material-symbols-outlined service-grid-mat-icon">info</span>
+          </div>
+          <div class="service-grid-title-wrap">
+           <b>App Maintenance &amp; Support</b>
+           <p class="delivery-hint small">Monthly retainer available</p>
+          </div><span class="material-symbols-outlined service-grid-check">check_circle</span>
+         </div>
+         <p class="muted small">Bug fixes, feature updates, testing, and long-term app maintenance.</p>
+        </article>
+       </div>
+      </div>
+     </section>
+     <section class="section reveal" id="testimonials">
+      <div class="container">
+       <div class="section-title-wrap center">
+        <h2 class="section-title center">Client Testimonials</h2><span class="section-underline"></span>
+       </div>
+       <p class="section-subtitle center">What clients and collaborators say about working together.</p>
+       <div class="grid testimonial-grid">
+        <div class="glass card testimonial-card reveal" style="--reveal-delay: 0ms;">
+         <div class="stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+         </div>
+         <p class="quote">"Shashank partnered with our data team to ship mobile KPI dashboards and reliable API layers. He translated analytics requirements into clean Kotlin architecture, met every sprint deadline, and communicated blockers early. A dependable engineer who delivers production-ready work."</p>
+         <p class="testimonial-author"><b>Krishna Yadav</b><span class="muted"> — Data Analyst, Analytics &amp; Insights</span></p>
+        </div>
+        <div class="glass card testimonial-card reveal" style="--reveal-delay: 100ms;">
+         <div class="stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+         </div>
+         <p class="quote">"Shashank built RRBMU Studies for our university — 1000+ downloads and strong Play Store ratings. He handled Firebase, push notifications, AdMob, and content workflows with professionalism. Students love the app; we recommend him for any academic or campus-tech project."</p>
+         <p class="testimonial-author"><b>RRBMU College</b><span class="muted"> — Academic Partner, Rajasthan, India</span></p>
+        </div>
+        <div class="glass card testimonial-card reveal" style="--reveal-delay: 200ms;">
+         <div class="stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+         </div>
+         <p class="quote">"During our Federated Learning collaboration, Shashank delivered an offline-first health-tracking Android prototype with Room sync, Google Fit integration, and Jetpack Compose UI. His engineering discipline and research mindset made remote cross-border teamwork seamless."</p>
+         <p class="testimonial-author"><b>Bristol University</b><span class="muted"> — Research Collaborator, Bristol, United Kingdom</span></p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <section class="section reveal" id="contact">
+      <div class="container">
+       <div class="section-title-wrap center">
+        <h2 class="section-title center">Get In Touch</h2><span class="section-underline"></span>
+       </div>
+       <p class="section-subtitle center">Recruiters &amp; clients — reach out directly. I typically respond within 24 hours.</p>
+       <div class="contact-grid">
+        <div class="glass card contact-info reveal">
+         <h3>Let's work together</h3>
+         <p class="muted">Recruiters &amp; clients — reach out directly. I typically respond within 24 hours.</p>
+         <p><a href="mailto:shashankranjantech@gmail.com">shashankranjantech@gmail.com</a></p>
+         <p><a href="tel:+919927904424">+919927904424</a></p>
+         <p class="muted">Noida, Uttar Pradesh, India</p>
+         <h4>Social Links</h4>
+         <div class="social-grid">
+          <a class="social-card glass" href="https://drive.google.com/file/d/1GKQkZOtrKGyvd9rDtuEnEmYtJ6i5klmS/view?usp=sharing" target="_blank" rel="noopener noreferrer"><img class="social-icon" src="assets/brand_resume.png" alt="Resume"><span>Resume</span></a><a class="social-card glass" href="https://www.linkedin.com/in/shashank142004/" target="_blank" rel="noopener noreferrer"><img class="social-icon" src="assets/brand_linkedin.png" alt="LinkedIn"><span>LinkedIn</span></a><a class="social-card glass" href="https://github.com/Shashank9759/" target="_blank" rel="noopener noreferrer"><img class="social-icon" src="assets/brand_github.png" alt="GitHub"><span>GitHub</span></a><a class="social-card glass" href="https://topmate.io/shashank_ranjan10" target="_blank" rel="noopener noreferrer"><img class="social-icon" src="assets/brand_topmate.png" alt="Topmate"><span>Topmate</span></a><a class="social-card glass" href="mailto:shashankranjantech@gmail.com" target="_blank" rel="noopener noreferrer"><img class="social-icon" src="assets/brand_gmail.png" alt="Email"><span>Email</span></a>
+         </div>
+        </div>
+        <form class="glass card contact-form reveal" id="contact-form" data-email="shashankranjantech@gmail.com">
+         <h3>Send a Message</h3><label>Name<input type="text" name="name" required="true" placeholder="Your name"></label><label>Subject<input type="text" name="subject" required="true" placeholder="Project or role"></label><label>Message<textarea name="message" required="true" placeholder="Tell me about your project..." rows="5" cols="10"></textarea></label>
+         <p class="form-error hidden" id="form-error"></p><button class="btn btn-gradient" type="submit">Send via Email</button>
+        </form>
+       </div>
+      </div>
+     </section>
+    </main>
+    <footer class="site-footer">
+     <div class="container footer-inner">
+      <h3 class="footer-name">Shashank Ranjan</h3>
+      <p class="footer-title">Android and Multiplatform Developer</p>
+      <h4 class="footer-connect">Connect with me</h4>
+      <div class="footer-social-row">
+       <a class="footer-social-card" href="https://drive.google.com/file/d/1GKQkZOtrKGyvd9rDtuEnEmYtJ6i5klmS/view?usp=sharing" target="_blank" rel="noopener noreferrer"><span class="footer-social-icon-wrap"><img class="footer-social-icon" src="assets/brand_resume.png" alt="Resume"></span><span class="footer-social-label">Resume</span></a><a class="footer-social-card" href="https://www.linkedin.com/in/shashank142004/" target="_blank" rel="noopener noreferrer"><span class="footer-social-icon-wrap"><img class="footer-social-icon" src="assets/brand_linkedin.png" alt="LinkedIn"></span><span class="footer-social-label">LinkedIn</span></a><a class="footer-social-card" href="https://github.com/Shashank9759/" target="_blank" rel="noopener noreferrer"><span class="footer-social-icon-wrap"><img class="footer-social-icon" src="assets/brand_github.png" alt="GitHub"></span><span class="footer-social-label">GitHub</span></a><a class="footer-social-card" href="https://topmate.io/shashank_ranjan10" target="_blank" rel="noopener noreferrer"><span class="footer-social-icon-wrap"><img class="footer-social-icon" src="assets/brand_topmate.png" alt="Topmate"></span><span class="footer-social-label">Topmate</span></a><a class="footer-social-card" href="mailto:shashankranjantech@gmail.com"><span class="footer-social-icon-wrap"><img class="footer-social-icon" src="assets/brand_gmail.png" alt="Email"></span><span class="footer-social-label">Email</span></a>
+      </div>
+      <hr class="footer-divider">
+      <p class="footer-copyright">© 2026 Shashank Ranjan. All rights reserved.</p>
+      <p class="footer-built">Built with Kobweb · Kotlin Compose HTML</p>
+     </div>
+    </footer><a class="fab" href="#contact" title="Contact"><span class="label">Let's Talk</span></a>
+   </div>
+  </div><!-- Encoded spinner character is a cobweb -->
+  <div id="status">
+   <span id="warning">❌</span><span id="spinner">🕸️</span> <span id="text"></span>
+   <style>
+        @keyframes kobweb-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(359deg); }
+        }
+        body > #status {
+            position: fixed;
+            font-size: 24px;
+            color: black;
+            background-color: whitesmoke;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            border: 1px solid;
+            border-radius: 10px;
+            visibility: hidden;
+            opacity: 0;
+            z-index: 2147483647;
+            user-select: none;
+        }
+        body > #status > .hidden {
+           display: none;
+        }
+        body > #status > .visible {
+            display: inline-block;
+        }
+        body > #status.fade-in {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 1s;
+        }
+        body > #status.fade-out {
+           visibility: hidden;
+           opacity: 0;
+           transition: visibility 0s 1s, opacity 1s;
+        }
+        body > #status > #spinner {
+            animation: kobweb-spin 1.5s linear infinite;
+        }
+    </style>
+  </div>
+  <script src="/portfolio.js"></script>
+ </body>
+</html>

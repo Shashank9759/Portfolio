@@ -1,0 +1,162 @@
+/* Scroll reveal — matches Compose rememberScrollAnimation (700ms / 800ms 3D) */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+html.js-ready .reveal {
+  opacity: 0;
+  transform: translateY(50px) perspective(800px) rotateY(8deg) scale(0.88);
+  transition:
+    opacity 700ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 800ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.js-ready .reveal.visible {
+  opacity: 1;
+  transform: translateY(0) perspective(800px) rotateY(0deg) scale(1);
+}
+
+@media (max-width: 599px) {
+  html.js-ready .reveal {
+    transform: translateY(40px) scale(0.95);
+  }
+  html.js-ready .reveal.visible {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (hover: none) {
+  .hover-tilt:hover {
+    transform: none !important;
+  }
+}
+
+/* Section header underline sweep — 2000ms */
+.section-title-wrap {
+  display: inline-block;
+  animation: header-float 4.2s ease-in-out infinite;
+}
+
+.section-underline {
+  display: block;
+  width: 72px;
+  height: 4px;
+  margin: 12px auto 0;
+  border-radius: 2px;
+  background: var(--gradient);
+  background-size: 200% 100%;
+  animation: underline-sweep 2s linear infinite alternate;
+}
+
+.section-title-wrap.left .section-underline {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+@keyframes underline-sweep {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+@keyframes header-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Avatar float — 3500ms, ±6px */
+@keyframes avatar-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.avatar-ring {
+  animation: avatar-float 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.avatar-glow {
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+  animation: glow-pulse 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.2; transform: scale(0.95); }
+  50% { opacity: 0.5; transform: scale(1.08); }
+}
+
+/* FAB pulse — 1800ms */
+@keyframes fab-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+.fab {
+  animation: fab-pulse 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@media (max-width: 599px) {
+  .fab { animation: none; }
+}
+
+/* Live badge dot */
+@keyframes live-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.live-dot {
+  animation: live-pulse 0.9s ease-in-out infinite alternate;
+}
+
+/* Skill shimmer — 2200ms */
+.skill-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2.2s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+.skill-header-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2.2s linear infinite;
+}
+
+/* Service panel transition */
+.service-panel {
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  transition: opacity 350ms ease, transform 350ms ease;
+}
+
+.service-panel.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  position: relative;
+}
+
+.service-panels-wrap {
+  position: relative;
+  min-height: 220px;
+}
