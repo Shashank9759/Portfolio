@@ -170,10 +170,10 @@
     }
   }
 
-  function initPlanets(template, scale) {
+  function initPlanets(template) {
     return template.map(function (p, i) {
       return {
-        label: p.label, orbit: p.orbit * scale, speed: p.speed, radius: p.radius * scale,
+        label: p.label, orbit: p.orbit, speed: p.speed, radius: p.radius,
         color: p.color, logo: p.logo, ring: p.ring, moons: p.moons, gas: p.gas,
         angle: (i / template.length) * Math.PI * 2 + Math.random() * 0.5,
         tilt: 0.38 + Math.random() * 0.12, spin: Math.random() * Math.PI * 2,
@@ -211,39 +211,40 @@
       };
     }
 
-    function fitSysScale() {
-      var name = document.querySelector(".hero-name");
-      var avatar = document.querySelector(".hero-avatar");
-      var gapW = width * 0.38;
-      var gapH = height * 0.24;
+    function heroSolarAnchor() {
+      var wrap = document.querySelector(".hero-avatar .avatar-wrap");
+      if (!wrap) return null;
+      var r = wrap.getBoundingClientRect();
+      if (r.width < 8 || r.height < 8) return null;
+      return {
+        x: r.left + r.width * 0.5,
+        y: r.top + r.height * 0.5,
+        radius: Math.min(r.width, r.height) * 0.5,
+      };
+    }
 
-      if (name && avatar) {
-        var nr = name.getBoundingClientRect();
-        var ar = avatar.getBoundingClientRect();
-        if (width >= DESKTOP_MIN && ar.left > nr.right + 20) {
-          gapW = ar.left - nr.right;
-          gapH = Math.max(nr.height, ar.height) + 40;
-        } else if (ar.top > nr.bottom) {
-          gapW = Math.min(width * 0.82, Math.max(nr.width, ar.width) + 40);
-          gapH = ar.top - nr.bottom;
-        } else {
-          gapW = width * 0.72;
-          var recruiter = document.querySelector(".recruiter-bar");
-          gapH = Math.max(120, nr.top - (recruiter ? recruiter.getBoundingClientRect().bottom : 0));
-        }
+    function fitSysScale() {
+      var anchor = heroSolarAnchor();
+      if (anchor) {
+        return clamp((anchor.radius * 2.15) / ORBIT_MAX, 0.68, 1.25);
       }
 
-      var maxW = Math.min(gapW * 0.92, width * 0.4);
-      var maxH = Math.min(gapH * 0.92, height * 0.3);
-      return clamp(Math.min(maxW / ORBIT_MAX, maxH / ORBIT_MAX), 0.3, 0.92);
+      var hero = document.querySelector(".hero-section");
+      if (hero) {
+        var hr = hero.getBoundingClientRect();
+        var size = Math.min(hr.width * 0.42, hr.height * 0.38, width * 0.38);
+        return clamp(size / ORBIT_MAX, 0.62, 1.1);
+      }
+
+      return clamp(Math.min(width, height) * 0.22 / ORBIT_MAX, 0.55, 0.95);
     }
 
     function profile() {
       var scale = fitSysScale();
       if (mode === "desktop") {
         return {
-          stars: 520, galaxy: 900, asteroids: 120, nebulae: 7, wormholes: 4, aliens: 14,
-          sysScale: scale, warp: 0.024, miniSystems: 3,
+          stars: 680, galaxy: 1200, asteroids: 160, nebulae: 10, wormholes: 6, aliens: 18,
+          sysScale: scale, warp: 0.032, miniSystems: 4,
         };
       }
       if (mode === "tablet") {
@@ -259,34 +260,24 @@
     }
 
     function solarCenter() {
-      var parX = (smooth.x / Math.max(1, width) - 0.5) * 6;
-      var parY = (smooth.y / Math.max(1, height) - 0.5) * 5;
-      var cx = width * 0.5;
-      var cy = height * 0.34;
-      var recruiter = document.querySelector(".recruiter-bar");
-      var name = document.querySelector(".hero-name");
-      var avatar = document.querySelector(".hero-avatar");
+      var parX = (smooth.x / Math.max(1, width) - 0.5) * 8;
+      var parY = (smooth.y / Math.max(1, height) - 0.5) * 6;
+      var anchor = heroSolarAnchor();
 
-      if (name && avatar) {
-        var nr = name.getBoundingClientRect();
-        var ar = avatar.getBoundingClientRect();
-
-        if (width >= DESKTOP_MIN && ar.left > nr.right + 20) {
-          cx = (nr.right + ar.left) * 0.5;
-          cy = (nr.top + nr.bottom + ar.top + ar.bottom) * 0.25;
-        } else if (ar.top > nr.bottom + 8) {
-          cx = (Math.min(nr.left, ar.left) + Math.max(nr.right, ar.right)) * 0.5;
-          cy = (nr.bottom + ar.top) * 0.5;
-        } else if (recruiter) {
-          cx = width * 0.5;
-          cy = (recruiter.getBoundingClientRect().bottom + nr.top) * 0.5;
-        }
-      } else if (recruiter && name) {
-        cx = width * 0.5;
-        cy = (recruiter.getBoundingClientRect().bottom + name.getBoundingClientRect().top) * 0.5;
+      if (anchor) {
+        return { x: anchor.x + parX, y: anchor.y + parY };
       }
 
-      return { x: cx + parX, y: cy + parY };
+      var hero = document.querySelector(".hero-section");
+      if (hero) {
+        var hr = hero.getBoundingClientRect();
+        return {
+          x: hr.left + hr.width * 0.72 + parX,
+          y: hr.top + hr.height * 0.42 + parY,
+        };
+      }
+
+      return { x: width * 0.5 + parX, y: height * 0.36 + parY };
     }
 
     function resize() {
@@ -307,7 +298,7 @@
         nebulae = createNebulae(pf.nebulae, width, height);
         wormholes = createWormholes(pf.wormholes, width, height);
         aliens = createAliens(pf.aliens, width, height);
-        planets = initPlanets(TECH_PLANETS, pf.sysScale);
+        planets = initPlanets(TECH_PLANETS);
       }
     }
 
@@ -560,8 +551,59 @@
       }
     }
 
+    function drawHyperRings(cx, cy, scale, alpha, now, th) {
+      var rings = mode === "mobile" ? 4 : 7;
+      for (var i = 0; i < rings; i += 1) {
+        var orbit = (68 + i * 44) * scale;
+        var tilt = 0.2 + i * 0.1;
+        var spin = now * (0.0002 + i * 0.00005) + i * 1.1;
+        var pulse = 1 + Math.sin(now * 0.0016 + i * 0.85) * 0.07;
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(spin);
+        ctx.scale(pulse, tilt);
+        var tint = i % 3 === 0 ? th.primary : i % 3 === 1 ? th.secondary : th.accent;
+        ctx.strokeStyle = rgba(tint, (0.14 + i * 0.018) * alpha);
+        ctx.lineWidth = 1 + i * 0.12;
+        ctx.setLineDash([5 + i * 2, 9 + i * 2]);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, orbit, orbit * 0.92, i * 0.22, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.restore();
+      }
+    }
+
+    function drawOrbitalTrails(cx, cy, scale, alpha, planetSet, th) {
+      planetSet.forEach(function (p) {
+        var orbit = p.orbit * scale;
+        var steps = mode === "mobile" ? 14 : 24;
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(1, p.tilt);
+        var trail = ctx.createLinearGradient(-orbit, 0, orbit, 0);
+        trail.addColorStop(0, "rgba(0,0,0,0)");
+        trail.addColorStop(0.5, rgba(hexToRgb(p.color), 0.2 * alpha));
+        trail.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.strokeStyle = trail;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        for (var s = 0; s <= steps; s += 1) {
+          var t = s / steps;
+          var ang = p.angle - t * Math.PI * 1.6;
+          var x = Math.cos(ang) * orbit;
+          var y = Math.sin(ang) * orbit;
+          if (s === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        ctx.restore();
+      });
+    }
+
     function drawSolarSystem(cx, cy, scale, alpha, now, planetSet, showLabels) {
       var th = theme();
+      drawHyperRings(cx, cy, scale, alpha, now, th);
+      drawOrbitalTrails(cx, cy, scale, alpha, planetSet, th);
       drawSun(cx, cy, scale, alpha, now);
       planetSet.forEach(function (p) { drawOrbitPath(cx, cy, p.orbit * scale, p.tilt, 0.2 * alpha, th.primary); });
 
@@ -762,25 +804,40 @@
     }
 
     function drawVignette() {
-      var v = ctx.createRadialGradient(width * 0.5, height * 0.46, Math.min(width, height) * 0.15, width * 0.5, height * 0.5, Math.max(width, height) * 0.85);
+      var center = solarCenter();
+      var inner = Math.min(width, height) * 0.22;
+      var outer = Math.max(width, height) * 0.92;
+      var v = ctx.createRadialGradient(center.x, center.y, inner, center.x, center.y, outer);
       v.addColorStop(0, "rgba(0,0,0,0)");
-      v.addColorStop(0.55, "rgba(0,0,0,0.06)");
-      v.addColorStop(1, "rgba(0,0,0,0.42)");
-      ctx.fillStyle = v; ctx.fillRect(0, 0, width, height);
+      v.addColorStop(0.45, "rgba(0,0,0,0)");
+      v.addColorStop(0.75, "rgba(0,0,0,0.14)");
+      v.addColorStop(1, "rgba(0,0,0,0.48)");
+      ctx.fillStyle = v;
+      ctx.fillRect(0, 0, width, height);
     }
 
     function drawMainSolar(now) {
-      var pf = profile(), center = solarCenter();
+      var pf = profile(), center = solarCenter(), scale = pf.sysScale;
       ctx.save();
       ctx.globalCompositeOperation = "screen";
-      drawAsteroidBelt(center.x, center.y, pf.sysScale, 1, now);
-      drawSolarSystem(center.x, center.y, pf.sysScale, 1, now, planets, true);
+      ctx.globalAlpha = mode === "mobile" ? 0.92 : 1;
+      drawAsteroidBelt(center.x, center.y, scale, 1, now);
+      drawSolarSystem(center.x, center.y, scale, 1, now, planets, true);
       ctx.restore();
     }
 
     function frame(now) {
       updatePointer();
+      var hyperE = window.HyperspaceEngine ? window.HyperspaceEngine.updateEnergy() : 0;
+      var thColors = {
+        primary: cssVar("--primary") || "#3b82f6",
+        secondary: cssVar("--secondary") || "#8b5cf6",
+        accent: cssVar("--accent") || "#34d399",
+        glow: cssVar("--accent-glow") || "#34d399",
+      };
+
       drawCosmos();
+      if (window.HyperspaceEngine) window.HyperspaceEngine.drawFull(ctx, width, height, now, thColors);
       drawGalaxy(now);
       drawNebulae(now);
       drawWormholes(now);
@@ -788,9 +845,9 @@
       drawWarpStars(now);
       drawAliens(now);
       drawMiniSystems(now);
+      if (Math.random() < 0.004 + hyperE * 0.018) spawnComet(comets, width, height);
       drawComets(now);
       drawVignette();
-      drawMainSolar(now);
       requestAnimationFrame(frame);
     }
 
