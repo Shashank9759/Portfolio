@@ -1,11 +1,7 @@
 (function () {
   "use strict";
 
-  var musicEnergy = 0;
-  var targetEnergy = 0;
-
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
-  function lerp(a, b, t) { return a + (b - a) * t; }
 
   function hexToRgb(hex) {
     if (!hex || hex[0] !== "#") return { r: 120, g: 180, b: 255 };
@@ -219,8 +215,7 @@
 
   window.HyperspaceEngine = {
     updateEnergy: function () {
-      musicEnergy = lerp(musicEnergy, targetEnergy, 0.06);
-      return musicEnergy;
+      return 0;
     },
 
     drawFull: function (ctx, w, h, now, th) {
@@ -248,9 +243,4 @@
       drawHyperObject(ctx, sphere10, cx, cy, scale * 0.55, now, th.secondary, e, false);
     },
   };
-
-  document.addEventListener("portfolio-music", function (ev) {
-    var d = ev.detail || {};
-    targetEnergy = d.playing ? clamp((d.volume || 50) / 100, 0.35, 1) : 0;
-  });
 })();

@@ -361,7 +361,7 @@ object PortfolioDataSource {
         ),
         testimonials = listOf(
             Testimonial(
-                clientName = "Krishna Yadav",
+                clientName = "Krishna Nand Yadav",
                 role = "Data Analyst",
                 company = "Analytics & Insights",
                 content = "Shashank partnered with our data team to ship mobile KPI dashboards and reliable API layers. " +

@@ -40,7 +40,6 @@ kobweb {
                 script(src = "/hyperspace.js") { defer = true }
                 script(src = "/background.js") { defer = true }
                 script(src = "/hero-solar.js") { defer = true }
-                script(src = "/music-player.js") { defer = true }
                 script(src = "/app.js") { defer = true }
             }
         }
